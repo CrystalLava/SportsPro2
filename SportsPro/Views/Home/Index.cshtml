@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Technicians";
+}
+
+<h1>SportsPro Technical Support</h1>
+<p>Sports management software for the sports enthusiast</p>
+
+<h1>Admin</h1>
+<div class="list-group">
+    <a asp-controller="Product" asp-action="List"
+       class="list-group-item">Manage Products</a>
+    <a asp-controller="Technician" asp-action="List"
+       class="list-group-item">Manage Technicians</a>
+    <a asp-controller="Customer" asp-action="List"
+       class="list-group-item">Manage Customers</a>
+    <a asp-controller="Incident" asp-action="List"
+       class="list-group-item">Manage Incidents</a>
+    <a asp-controller="Registration" asp-action="List"
+       class="list-group-item">Manage Registrations</a>
+</div>
+
+<h1>Technicians</h1>
+<div class="list-group">
+    <a asp-controller="Incident" asp-action="ListByTech"
+       class="list-group-item">Update Incident</a>
+</div>
