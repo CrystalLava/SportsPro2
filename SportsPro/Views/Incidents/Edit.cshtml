@@ -1,0 +1,64 @@
+﻿@model Incident
+@{
+    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    ViewBag.Title = title;
+}
+<h1 class="jumbotron">@ViewBag.Action Product</h1>
+
+<form asp-action="Edit" asp-controller="Incidents" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @if (ViewBag.Action == "Edit")
+    {
+        <input asp-for="IncidentID" type="hidden" value="@Model.IncidentID" />
+    }
+    <div class="form-group">
+        <label asp-for="CustomerID">Customer</label>
+        <select asp-for="CustomerID" class="form-control">
+            <option value="">Select a Customer</option>
+            @foreach (var c in ViewBag.Customers)
+            {
+                <option value="@c.CustomerID">@c.FullName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductID">Product</label>
+        <select asp-for="ProductID" class="form-control">
+            <option value="">Select a Product</option>
+            @foreach (var p in ViewBag.Products)
+            {
+                <option value="@p.ProductID">@p.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input asp-for="Title" type="text" class="form-control" id="title" placeholder="Title" value=@Model.Title>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input asp-for="Description" type="text" class="form-control" id="description" placeholder="Description" value=@Model.Description>
+    </div>
+    <div class="form-group">
+        <label asp-for="TechnicianID">Technician</label>
+        <select asp-for="TechnicianID" class="form-control">
+            <option value="">Assign A Technician</option>
+            @foreach (var t in ViewBag.Technicians)
+            {
+                <option value="@t.TechnicianID">@t.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="odate">Date Opened</label>
+        <input asp-for="DateOpened" type="datetime" class="form-control" id="odate" placeholder="DateOpened" value=@Model.DateOpened>
+    </div>
+    <div class="form-group">
+        <label for="cdate">Date Closed</label>
+        <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
+    </div>
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <a asp-controller="Incidents" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
