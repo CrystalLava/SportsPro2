@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SportsPro.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    /*public class HomeController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-    }
+    }*/
 }
