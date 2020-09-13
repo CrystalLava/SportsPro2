@@ -1,0 +1,39 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Product Manager";
+}
+
+<h1 class="jumbotron">Product Manager</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Release Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in @Model)
+        {
+            <tr>
+                <td>@p.ProductCode</td>
+                <td>@p.Name</td>
+                <td>@p.YearlyPrice</td>
+                <td>@p.ReleaseDate</td>
+                <td>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id=@p.ProductID class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id=@p.ProductID class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+<br />
+<a asp-controller="Products" asp-action="Add" class="btn btn-primary">Add Product</a>
