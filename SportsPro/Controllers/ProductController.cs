@@ -7,20 +7,25 @@ using SportsPro.Models;
 
 namespace SportsPro.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
         private SportsProContext context { get; set; }
 
-        public ProductController(SportsProContext ctx)
+        public ProductsController(SportsProContext context)
         {
-            context = ctx;
+            this.context = context;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View(context.Products.ToList());
         }
 
         [HttpGet]
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
-            ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
             return View("Edit", new Product());
         }
 
@@ -28,44 +33,41 @@ namespace SportsPro.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
-            var movie = context.Products.Find(id);
-            return View(movie);
+            var p = context.Products.Find(id);
+            return View(p);
         }
 
         [HttpPost]
         public IActionResult Edit(Product product)
         {
-            if (ModelState.IsValid)
-            {
-                if (product.ProductID == 0)
-                    context.Products.Add(product);
-                else
-                    context.Products.Update(product);
-                context.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
+            if (product.ProductID == 0)
+                context.Products.Add(product);
             else
-            {
-                ViewBag.Action = (product.ProductID == 0) ? "Add" : "Edit";
-                ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
-                return View(product);
-            }
+                context.Products.Update(product);
+
+            context.SaveChanges();
+            return RedirectToAction("Index", "Products");
         }
+
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var movie = context.Products.Find(id);
-            return View(movie);
+            ViewBag.Action = "Delete";
+            var p = context.Products.Find(id);
+            return View(p);
         }
 
+
         [HttpPost]
-        public IActionResult Delete(Product movie)
+        public IActionResult Delete(Product product)
         {
-            context.Products.Remove(movie);
+            context.Products.Remove(product);
             context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Products");
         }
+
+
     }
 }
+
