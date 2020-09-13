@@ -29,7 +29,7 @@ namespace SportsPro.Controllers
         {
             ViewBag.Action = "Edit";
             ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
-            var movie = context.Movies.Find(id);
+            var movie = context.Products.Find(id);
             return View(movie);
         }
 
@@ -39,31 +39,31 @@ namespace SportsPro.Controllers
             if (ModelState.IsValid)
             {
                 if (product.ProductID == 0)
-                    context.Movies.Add(movie);
+                    context.Products.Add(product);
                 else
-                    context.Movies.Update(movie);
+                    context.Products.Update(product);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.Action = (movie.MovieId == 0) ? "Add" : "Edit";
+                ViewBag.Action = (product.ProductID == 0) ? "Add" : "Edit";
                 ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
-                return View(movie);
+                return View(product);
             }
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var movie = context.Movies.Find(id);
+            var movie = context.Products.Find(id);
             return View(movie);
         }
 
         [HttpPost]
-        public IActionResult Delete(Movie movie)
+        public IActionResult Delete(Product movie)
         {
-            context.Movies.Remove(movie);
+            context.Products.Remove(movie);
             context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
