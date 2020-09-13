@@ -1,0 +1,27 @@
+﻿@model Technician
+@{
+    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    ViewBag.Title = title;
+}
+<h1 class="jumbotron">@ViewBag.Action Product</h1>
+
+<form asp-action="Edit" asp-controller="Technicians" method="post">
+    @if (ViewBag.Action == "Edit")
+    {
+        <input asp-for="TechnicianID" type="hidden" value="@Model.TechnicianID" />
+    }
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Name" value=@Model.Name>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter Email" value=@Model.Email>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
+    </div>
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <a asp-controller="Technicians" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
