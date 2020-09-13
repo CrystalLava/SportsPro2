@@ -1,5 +1,61 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model Incident
 @{
+    string title = ViewBag.Action + " Incident";
+    ViewBag.Title = title;
 }
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Customer">Year</label>
+        <input asp-for="Customer" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product">Year</label>
+        <input asp-for="Product" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOpened">Year</label>
+        <input asp-for="DateOpened" class="form-control">
+    </div>
+
+    @*<div class="form-group">
+            <label asp-for="Product">Genre</label>
+            <select asp-for="Product" class="form-control">
+
+                <option value="">select a genre</option>
+                @foreach (Genre g in ViewBag.Genres)
+                {
+                    <option value="@g.GenreId">@g.Name</option>
+                }
+            </select>
+        </div>*@
+
+
+    <input type="hidden" asp-for="IncidentID" />
+
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    @if (ViewBag.Action == "Add")
+    {
+        <a asp-controller="Home" asp-action="Index"
+           class="btn btn-primary">Cancel</a>
+    }
+    else
+    {
+        <a asp-action="Edit"
+           class="btn btn-primary">Cancel Edit</a>
+    }
+</form>
