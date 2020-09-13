@@ -25,7 +25,7 @@ namespace SportsPro
 
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("SportsPro")));
+                    Configuration.GetConnectionString("SportsProContext")));
 
             services.AddRouting(options => {
                 options.LowercaseUrls = true;
