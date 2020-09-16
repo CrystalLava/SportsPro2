@@ -4,7 +4,9 @@
     ViewBag.Title = title;
     ViewBag.Date = ViewBag.Action == "Add" ? DateTime.Now : Model.ReleaseDate;
 }
-<h1 class="jumbotron">@ViewBag.Action Product</h1>
+<div class="text-center">
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Product</b></h1>
+</div>
 
 <form asp-action="Edit" asp-controller="Products" method="post">
     @if (ViewBag.Action == "Edit")
@@ -28,6 +30,5 @@
         <input asp-for="ReleaseDate" type="datetime" class="form-control" id="date" placeholder="Release Date" value="@ViewBag.Date">
     </div>
     <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
-    <a asp-controller="Products" asp-action="Index" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>
-

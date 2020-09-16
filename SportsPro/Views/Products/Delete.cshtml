@@ -2,14 +2,15 @@
 @{
     ViewBag.Title = "Delete Product";
 }
+<div class="alert alert-danger">
+    <h2>Confirm Deletion</h2>
+    <h3>@Model.Name (@Model.ReleaseDate)</h3>
 
-<h2>Confirm Deletion</h2>
-<h3>@Model.Name (@Model.ReleaseDate)</h3>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ProductID" />
 
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="ProductID" />
-
-    <button type="submit" class="btn btn-primary">Delete</button>
-    <a asp-controller="Products" asp-action="Index"
-       class="btn btn-primary">Cancel</a>
-</form>
+        <button type="submit" class="btn btn-primary">Delete</button>
+        <a asp-controller="Products" asp-action="Index"
+           class="btn btn-primary">Cancel</a>
+    </form>
+</div>

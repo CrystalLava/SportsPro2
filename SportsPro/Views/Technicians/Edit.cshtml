@@ -3,7 +3,9 @@
     string title = ViewBag.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
-<h1 class="jumbotron">@ViewBag.Action Product</h1>
+<div class="text-center">
+    <h1 style="        background-color: #b0cac7; font-size:50px" class="jumbotron"><b>@ViewBag.Action Technician</b></h1>
+</div>
 
 <form asp-action="Edit" asp-controller="Technicians" method="post">
     @if (ViewBag.Action == "Edit")
@@ -23,5 +25,5 @@
         <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
     </div>
     <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
-    <a asp-controller="Technicians" asp-action="Index" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Technicians" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>

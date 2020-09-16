@@ -3,8 +3,9 @@
     string title = ViewBag.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
-<h1 class="jumbotron">@ViewBag.Action Product</h1>
-
+<div class="text-center">
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron">@ViewBag.Action Incident</h1>
+</div>
 <form asp-action="Edit" asp-controller="Incidents" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -60,5 +61,5 @@
         <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
     </div>
     <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
-    <a asp-controller="Incidents" asp-action="Index" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Incidents" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>
