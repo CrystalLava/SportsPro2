@@ -26,6 +26,7 @@ namespace SportsPro.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
+            
             return View("Edit", new Product());
         }
 
@@ -44,8 +45,9 @@ namespace SportsPro.Controllers
                 context.Products.Add(product);
             else
                 context.Products.Update(product);
-
+           
             context.SaveChanges();
+            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Products");
         }
 
@@ -64,6 +66,7 @@ namespace SportsPro.Controllers
         {
             context.Products.Remove(product);
             context.SaveChanges();
+            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Products");
         }
 
