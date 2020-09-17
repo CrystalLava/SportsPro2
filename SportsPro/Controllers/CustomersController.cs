@@ -50,7 +50,7 @@ namespace SportsPro.Controllers
                 context.Customers.Update(t);
 
             context.SaveChanges();
-
+            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Customers");
         }
 
@@ -69,6 +69,7 @@ namespace SportsPro.Controllers
             ViewBag.Action = "";
             context.Customers.Remove(t);
             context.SaveChanges();
+            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Customers");
         }
 

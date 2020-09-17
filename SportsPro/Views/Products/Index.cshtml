@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Product Manager";
 }
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
 <div class="text-center">
     <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Product Manager</b></h1>
 </div>
