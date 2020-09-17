@@ -41,7 +41,8 @@
                         <a class="nav-item nav-link active" asp-controller="Incidents" asp-action="Index">Incidents</a>
                     *@
 
-                    <a class="nav-item nav-link @(controller == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
+                    @*Get the navigation links to work correctly*@
+                    <a class="nav-item nav-link @(controller == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a> 
                     <a class="nav-item nav-link @(controller == "Product" ? "active" : "")" asp-controller="Products" asp-action="List">Products</a>
                     <a class="nav-item nav-link @(controller == "Technician"? "active" : "")" asp-controller="Technicians" asp-action="List">Technicians</a>
                     <a class="nav-item nav-link @(controller == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="List">Customers</a>
