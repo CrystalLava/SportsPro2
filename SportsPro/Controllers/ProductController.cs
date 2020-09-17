@@ -16,6 +16,8 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
+
+        [Route("Products")] //Add Route
         [HttpGet]
         public IActionResult Index()
         {

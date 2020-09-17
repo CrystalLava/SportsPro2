@@ -18,6 +18,7 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
+        [Route("Incidents")] //Add Route
         public IActionResult Index()
         {
             var Incidents = context.Incidents

@@ -3,6 +3,11 @@
     string title = ViewBag.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
+
+@*Add Validation to Add Edit Pages*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="text-center">
     <h1 style="        background-color: #b0cac7; font-size:50px" class="jumbotron"><b>@ViewBag.Action Technician</b></h1>
 </div>

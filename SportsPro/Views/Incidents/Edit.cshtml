@@ -3,6 +3,11 @@
     string title = ViewBag.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
+
+@*Add Validation to Add Edit Pages*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="text-center">
     <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron">@ViewBag.Action Incident</h1>
 </div>
@@ -15,22 +20,31 @@
     }
     <div class="form-group">
         <label asp-for="CustomerID">Customer</label>
-        <select asp-for="CustomerID" class="form-control">
+        @* <select asp-for="CustomerID"*@
+
+        <select asp-for="CustomerID" asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName", Model.CustomerID))"
+                class="form-control">
             <option value="">Select a Customer</option>
-            @foreach (var c in ViewBag.Customers)
-            {
-                <option value="@c.CustomerID">@c.FullName</option>
-            }
+
+            @*@foreach (var c in ViewBag.Customers)
+                {
+                    <option value="@c.CustomerID">@c.FullName</option>
+                }
+            *@
         </select>
     </div>
     <div class="form-group">
         <label asp-for="ProductID">Product</label>
-        <select asp-for="ProductID" class="form-control">
+        @*<select asp-for="ProductID" *@
+        <select asp-for="ProductID" asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name",  Model.ProductID))"
+                class="form-control">
             <option value="">Select a Product</option>
-            @foreach (var p in ViewBag.Products)
-            {
-                <option value="@p.ProductID">@p.Name</option>
-            }
+
+            @* @foreach (var p in ViewBag.Products)
+                {
+                    <option value="@p.ProductID">@p.Name</option>
+                }*@
+
         </select>
     </div>
     <div class="form-group">
@@ -43,12 +57,15 @@
     </div>
     <div class="form-group">
         <label asp-for="TechnicianID">Technician</label>
-        <select asp-for="TechnicianID" class="form-control">
+        @* <select asp-for="TechnicianID" *@
+        <select asp-for="TechnicianID" asp-items="@(new SelectList(ViewBag.Technicians, "TechnicianID", "Name",  Model.TechnicianID))"
+                class="form-control">
             <option value="">Assign A Technician</option>
-            @foreach (var t in ViewBag.Technicians)
-            {
-                <option value="@t.TechnicianID">@t.Name</option>
-            }
+            @* @foreach (var t in ViewBag.Technicians)
+                {
+                    <option value="@t.TechnicianID">@t.Name</option>
+                }*@
+
         </select>
     </div>
 

@@ -4,6 +4,11 @@
     string title = ViewBag.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
+
+@*Add Validation to Add Edit Pages*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="text-center">
     <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Customer</b></h1>
 </div>
@@ -37,13 +42,20 @@
         <input asp-for="PostalCode" type="text" class="form-control" id="postal" placeholder="Postal Code" value=@Model.PostalCode>
     </div>
     <div class="form-group">
+
         <label asp-for="CountryID">Country</label>
-        <select asp-for="CountryID" class="form-control">
+        @* <select asp-for="CountryID*@
+
+        <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.Countries, "CountryID", "Name", // use the asp- items tag helper instead of Select
+                         Model.CountryID))"
+                class="form-control">
             <option value="">Select a Country</option>
-            @foreach (var c in ViewBag.Countries)
-            {
-                <option value="@c.CountryID">@c.Name</option>
-            }
+
+            @* @foreach (var c in ViewBag.Countries)
+                {
+                    <option value="@c.CountryID">@c.Name</option>
+                }
+            *@
         </select>
     </div>
     <div class="form-group">

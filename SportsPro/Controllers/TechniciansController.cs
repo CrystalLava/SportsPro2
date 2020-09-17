@@ -17,6 +17,7 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
+        [Route("Technicians")]
         public IActionResult Index()
         {
             var technicians = context.Technicians.ToList();

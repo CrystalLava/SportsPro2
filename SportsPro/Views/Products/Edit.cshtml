@@ -4,6 +4,11 @@
     ViewBag.Title = title;
     ViewBag.Date = ViewBag.Action == "Add" ? DateTime.Now : Model.ReleaseDate;
 }
+
+@*Add Validation to Add Edit Pages*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="text-center">
     <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Product</b></h1>
 </div>
