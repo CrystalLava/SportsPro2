@@ -1,12 +1,23 @@
 ﻿@model List<Technician>
+
 @{
     ViewBag.Title = "Technician Manager";
+    var msg = TempData["Message"]?.ToString();
+    var needsToShow = msg == null || msg == "" ? false : true;
+    bool deleted = false;
+    if (needsToShow)
+    {
+        deleted = msg.Contains("Delete");
+    }
+    TempData["Message"] = "";
 }
-@if (TempData["Success"] != null)
-{
-    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
-}
+
 <div class="text-center">
+    @if (needsToShow)
+    {
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+    }
+
     <h1 style="background-color: #f7d6bf; font-size:50px" class="jumbotron"><b>Technician Manager</b></h1>
 </div>
 <table class="table table-striped">

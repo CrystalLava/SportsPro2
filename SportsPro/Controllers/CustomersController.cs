@@ -16,6 +16,8 @@ namespace SportsPro.Controllers
         {
             this.context = context;
         }
+        [TempData]
+        public string Message { get; set; }
 
         [Route("Customers")]// Add Route
         public IActionResult Index()
@@ -40,20 +42,25 @@ namespace SportsPro.Controllers
             var t = context.Customers.Find(id);
             return View(t);
         }
+        	
+         [HttpPost]
+                public RedirectToActionResult Edit(Customer customer)
+                {
+                    if (customer.CustomerID == 0)
+                    {
+                        Message = $"Added Customer {customer.FullName}";
+                        context.Customers.Add(customer);
+                    }
+                    else
+                    {
+                        Message = $"Edited Customer {customer.FullName}";
+                        context.Customers.Update(customer);
+                    }
 
-        [HttpPost]
-        public IActionResult Edit(Customer t)
-        {
-            if (t.CustomerID == 0)
-                context.Customers.Add(t);
-            else
-                context.Customers.Update(t);
-
-            context.SaveChanges();
-            TempData["Success"] = "Success!";
-            return RedirectToAction("Index", "Customers");
-        }
-
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Customers");
+                }
+       
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -64,12 +71,11 @@ namespace SportsPro.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(Customer t)
+        public IActionResult Delete(Customer customer)
         {
-            ViewBag.Action = "";
-            context.Customers.Remove(t);
+            Message = $"Deleted Customer {customer.FullName}";
+            context.Customers.Remove(customer);
             context.SaveChanges();
-            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Customers");
         }
 

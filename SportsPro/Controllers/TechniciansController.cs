@@ -17,6 +17,9 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
+        [TempData]
+        public string Message { get; set; }
+
         [Route("Technicians")]
         public IActionResult Index()
         {
@@ -38,20 +41,24 @@ namespace SportsPro.Controllers
             var t = context.Technicians.Find(id);
             return View(t);
         }
+       [HttpPost]
+                public RedirectToActionResult Edit(Technician technician)
+                {
+                    if (technician.TechnicianID == 0)
+                    {
+                        Message = $"Added Technician {technician.Name}";
+                        context.Technicians.Add(technician);
+                    }
+                    else
+                    {
+                        Message = $"Edited Technician {technician.Name}";
+                        context.Technicians.Update(technician);
+                    }
 
-        [HttpPost]
-        public IActionResult Edit(Technician t)
-        {
-            if (t.TechnicianID == 0)
-                context.Technicians.Add(t);
-            else
-                context.Technicians.Update(t);
-
-            context.SaveChanges();
-            TempData["Success"] = "Success!";
-            return RedirectToAction("Index", "Technicians");
-        }
-
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Technicians");
+                }
+      
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -62,10 +69,10 @@ namespace SportsPro.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(Technician t)
+        public IActionResult Delete(Technician technician)
         {
-            ViewBag.Action = "";
-            context.Technicians.Remove(t);
+            Message = $"Deleted Technician {technician.Name}";
+            context.Technicians.Remove(technician);
             context.SaveChanges();
             TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Technicians");

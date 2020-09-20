@@ -1,44 +1,54 @@
 ﻿@model List<Incident>
 @{
     ViewBag.Title = "Incident Manager";
+    var msg = TempData["Message"]?.ToString();
+    var needsToShow = msg == null || msg == "" ? false : true;
+    bool deleted = false;
+    if (needsToShow)
+    {
+        deleted = msg.Contains("Delete");
+    }
+    TempData["Message"] = "";
 }
-@if (TempData["Success"] != null)
-{
-    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
-}
+
 <div class="text-center">
-    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
+    @if (needsToShow)
+    {
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+    }
+   
+        <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
 </div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Customer</th>
-            <th scope="col">Product</th>
-            <th scope="col">Date Opened</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var i in @Model)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@i.Title</td>
-                <td>@i.Customer.FullName</td>
-                <td>@i.Product.Name</td>
-                <td>@i.DateOpened</td>
-                <td>
-                    <a asp-controller="Incidents" asp-action="Edit" asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
-                </td>
-                <td>
-                    <a asp-controller="Incidents" asp-action="Delete" asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
-                </td>
+                <th scope="col">Title</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Product</th>
+                <th scope="col">Date Opened</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-        }
-    </tbody>
-</table>
-<br />
-<br />
-<br />
-<a asp-controller="Incidents" asp-action="Add" class="btn btn-primary">Add Incident</a>
+        </thead>
+        <tbody>
+            @foreach (var i in @Model)
+            {
+                <tr>
+                    <td>@i.Title</td>
+                    <td>@i.Customer.FullName</td>
+                    <td>@i.Product.Name</td>
+                    <td>@i.DateOpened</td>
+                    <td>
+                        <a asp-controller="Incidents" asp-action="Edit" asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Incidents" asp-action="Delete" asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <br />
+    <a asp-controller="Incidents" asp-action="Add" class="btn btn-primary">Add Incident</a>

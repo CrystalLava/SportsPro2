@@ -17,6 +17,9 @@ namespace SportsPro.Controllers
         {
             this.context = context;
         }
+        [TempData]
+        public string Message { get; set; }
+
 
         [Route("Incidents")] //Add Route
         public IActionResult Index()
@@ -49,19 +52,26 @@ namespace SportsPro.Controllers
             var t = context.Incidents.Find(id);
             return View(t);
         }
-
         [HttpPost]
-        public IActionResult Edit(Incident t)
-        {
-            if (t.IncidentID == 0)
-                context.Incidents.Add(t);
-            else
-                context.Incidents.Update(t);
+                public RedirectToActionResult Edit(Incident incident)
+                {
+  
+                    if (incident.IncidentID == 0)
+                    {
 
-            context.SaveChanges();
-            TempData["Success"] = "Success!";
-            return RedirectToAction("Index", "Incidents");
-        }
+                        Message = $"Added Incident";
+                        context.Incidents.Add(incident);
+                    }
+                    else
+                    {
+                        Message = $"Edited Incident";
+                        context.Incidents.Update(incident);
+                    }
+
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Incidents");
+                }
+       
 
         [HttpGet]
         public IActionResult Delete(int id)
@@ -78,10 +88,10 @@ namespace SportsPro.Controllers
 
 
         [HttpPost]
-        public IActionResult Delete(Incident t)
+        public IActionResult Delete(Incident incident)
         {
-            ViewBag.Action = "";
-            context.Incidents.Remove(t);
+            Message = $"Deleted Incident";
+            context.Incidents.Remove(incident);
             context.SaveChanges();
             TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Incidents");

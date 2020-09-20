@@ -16,6 +16,9 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
+        [TempData]
+        public string Message { get; set; }
+
 
         [Route("Products")] //Add Route
         [HttpGet]
@@ -41,15 +44,20 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public RedirectToActionResult Edit(Product product)
         {
             if (product.ProductID == 0)
+            {
+                Message = $"Added Product {product.Name}";
                 context.Products.Add(product);
+            }
             else
+            {
+                Message = $"Edited Product {product.Name}";
                 context.Products.Update(product);
-           
+            }
+
             context.SaveChanges();
-            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Products");
         }
 
@@ -66,9 +74,10 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Delete(Product product)
         {
+
+            Message = $"Deleted Product {product.Name}";
             context.Products.Remove(product);
             context.SaveChanges();
-            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Products");
         }
 
