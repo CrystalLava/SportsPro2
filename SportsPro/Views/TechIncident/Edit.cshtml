@@ -3,8 +3,9 @@
 
 }
 
-<h1 class="jumbotron">Edit Incident</h1>
-
+<div class="text-center">
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>Edit Incident</b></h1>
+</div>
 <form asp-action="Edit" asp-controller="TechIncident" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
     <input asp-for="IncidentID" type="hidden" value="@Model.IncidentID" />
@@ -41,5 +42,5 @@
         <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
     </div>
     <button type="submit" class="btn btn-primary">Edit</button>
-    <a asp-controller="TechIncident" asp-action="List" asp-route-id="@Model.TechnicianID" class="btn btn-primary">Cancel</a>
+    <a asp-controller="TechIncident" asp-action="List" asp-route-id="@Model.TechnicianID" class="btn btn-info">Cancel</a>
 </form>

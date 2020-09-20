@@ -74,7 +74,6 @@ namespace SportsPro.Controllers
             Message = $"Deleted Technician {technician.Name}";
             context.Technicians.Remove(technician);
             context.SaveChanges();
-            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Technicians");
         }
 

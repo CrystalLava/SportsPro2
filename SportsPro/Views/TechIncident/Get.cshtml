@@ -8,7 +8,11 @@
         document.querySelector("#select").setAttribute("href", "/techincident/list/" + select.options[select.selectedIndex].value)
     }
 </script>
-<h1 class="jumbotron">Technician</h1>
+
+<div class="text-center">
+    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Technician</b></h1>
+</div>
+
 <div class="form-group">
     <label>Technician</label>
     <select onchange="ChangeMe()" name="id" required class="form-control">

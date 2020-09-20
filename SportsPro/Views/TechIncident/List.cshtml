@@ -2,8 +2,11 @@
 @model TechIncidentViewModel
 @{
 }
-<h1 class="jumbotron">Open/Assigned Incidents To @Model.Technician.Name</h1>
-<table class="table">
+<div class="text-center">
+    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Open/Assigned Incidents To @Model.Technician.Name</b></h1>
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Title</th>

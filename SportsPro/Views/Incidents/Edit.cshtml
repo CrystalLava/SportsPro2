@@ -1,6 +1,7 @@
-﻿@model Incident
+﻿@using SportsPro.ViewModels
+@model IncidentAEViewModel
 @{
-    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    string title = Model.Action == "Add" ? "Add" : "Edit";
     ViewBag.Title = title;
 }
 
@@ -9,61 +10,64 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="text-center">
-    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron">@ViewBag.Action Incident</h1>
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@Model.Action Incident</b></h1>
 </div>
+
 <form asp-action="Edit" asp-controller="Incidents" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    @if (ViewBag.Action == "Edit")
+    @if (Model.Action == "Edit")
     {
-        <input asp-for="IncidentID" type="hidden" value="@Model.IncidentID" />
+        <input asp-for="Incident.IncidentID" type="hidden" value="@Model.Incident.IncidentID" />
     }
     <div class="form-group">
-        <label asp-for="CustomerID">Customer</label>
-       
-
-        <select asp-for="CustomerID" asp-items="@(new SelectList(ViewBag.Customers, "CustomerID", "FullName", Model.CustomerID))"
-                class="form-control">
+        <label asp-for="Incident.CustomerID">Customer</label>
+        <select asp-for="Incident.CustomerID" class="form-control">
             <option value="">Select a Customer</option>
-
-       
+            @foreach (var c in Model.Customers)
+            {
+                <option value="@c.CustomerID">@c.FullName</option>
+            }
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="ProductID">Product</label>
-   
-        <select asp-for="ProductID" asp-items="@(new SelectList(ViewBag.Products, "ProductID", "Name",  Model.ProductID))"
-                class="form-control">
+        <label>Product</label>
+        <select asp-for="Incident.ProductID" class="form-control">
             <option value="">Select a Product</option>
-
+            @foreach (var p in Model.Products)
+            {
+                <option value="@p.ProductID">@p.Name</option>
+            }
         </select>
     </div>
     <div class="form-group">
         <label for="title">Title</label>
-        <input asp-for="Title" type="text" class="form-control" id="title" placeholder="Title" value=@Model.Title>
+        <input asp-for="Incident.Title" type="text" class="form-control" id="title" placeholder="Title" value=@Model.Incident.Title>
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <input asp-for="Description" type="text" class="form-control" id="description" placeholder="Description" value=@Model.Description>
+        <input asp-for="Incident.Description" type="text" class="form-control" id="description" placeholder="Description" value=@Model.Incident.Description>
     </div>
     <div class="form-group">
-        <label asp-for="TechnicianID">Technician</label>
-    
-        <select asp-for="TechnicianID" asp-items="@(new SelectList(ViewBag.Technicians, "TechnicianID", "Name",  Model.TechnicianID))"
-                class="form-control">
+        <label>Technician</label>
+        <select asp-for="Incident.TechnicianID" class="form-control">
             <option value="">Assign A Technician</option>
-           
+            @foreach (var t in Model.Technicians)
+            {
+                <option value="@t.TechnicianID">@t.Name</option>
+            }
         </select>
     </div>
 
     <div class="form-group">
         <label for="odate">Date Opened</label>
-        <input asp-for="DateOpened" type="datetime" class="form-control" id="odate" placeholder="DateOpened" value=@Model.DateOpened>
+        <input asp-for="Incident.DateOpened" type="datetime" class="form-control" id="odate" placeholder="DateOpened" value=@Model.Incident.DateOpened>
     </div>
     <div class="form-group">
         <label for="cdate">Date Closed</label>
-        <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
+        <input asp-for="Incident.DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.Incident.DateClosed>
     </div>
-    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <button type="submit" class="btn btn-primary">@Model.Action</button>
     <a asp-controller="Incidents" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>
+

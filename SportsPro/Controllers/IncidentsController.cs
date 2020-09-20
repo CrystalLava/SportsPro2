@@ -67,25 +67,19 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-                public RedirectToActionResult Edit(Incident incident)
-                {
-  
-                    if (incident.IncidentID == 0)
-                    {
+        public IActionResult Edit(IncidentAEViewModel viewModel)
+        {
+            if (viewModel.Incident.IncidentID == 0)
+                context.Incidents.Add(viewModel.Incident);
+            else
+                context.Incidents.Update(viewModel.Incident);
 
-                        Message = $"Added Incident";
-                        context.Incidents.Add(incident);
-                    }
-                    else
-                    {
-                        Message = $"Edited Incident";
-                        context.Incidents.Update(incident);
-                    }
+            context.SaveChanges();
 
-                    context.SaveChanges();
-                    return RedirectToAction("Index", "Incidents");
-                }
-       
+            return RedirectToAction("Index", "Incidents");
+        }
+
+
 
         [HttpGet]
         public IActionResult Delete(int id)
@@ -100,16 +94,15 @@ namespace SportsPro.Controllers
             return View(t);
         }
 
-
         [HttpPost]
-        public IActionResult Delete(Incident incident)
+        public IActionResult Delete(Incident t)
         {
-            Message = $"Deleted Incident";
-            context.Incidents.Remove(incident);
+            ViewBag.Action = "";
+            context.Incidents.Remove(t);
             context.SaveChanges();
-            TempData["Success"] = "Success!";
             return RedirectToAction("Index", "Incidents");
         }
+
 
     }
 }
