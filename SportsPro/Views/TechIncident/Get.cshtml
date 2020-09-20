@@ -1,0 +1,24 @@
+﻿@model List<Technician>
+@{
+}
+
+<script>
+    function ChangeMe() {
+        const select = document.querySelector("select");
+        document.querySelector("#select").setAttribute("href", "/techincident/list/" + select.options[select.selectedIndex].value)
+    }
+</script>
+<h1 class="jumbotron">Technician</h1>
+<div class="form-group">
+    <label>Technician</label>
+    <select onchange="ChangeMe()" name="id" required class="form-control">
+        <option value="" disabled selected hidden>Choose Technician</option>
+        @foreach (var t in Model)
+        {
+            <option value="@t.TechnicianID">@t.Name</option>
+        }
+    </select>
+</div>
+
+<a id="select" asp-controller="TechIncident" asp-action="List"
+   class="btn btn-primary">Select</a>

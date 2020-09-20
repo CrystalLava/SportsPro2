@@ -44,18 +44,14 @@
     <div class="form-group">
 
         <label asp-for="CountryID">Country</label>
-        @* <select asp-for="CountryID*@
+      
 
         <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.Countries, "CountryID", "Name", // use the asp- items tag helper instead of Select
                          Model.CountryID))"
                 class="form-control">
             <option value="">Select a Country</option>
 
-            @* @foreach (var c in ViewBag.Countries)
-                {
-                    <option value="@c.CountryID">@c.Name</option>
-                }
-            *@
+           
         </select>
     </div>
     <div class="form-group">

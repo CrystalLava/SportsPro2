@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SportsPro.Models;
 using Microsoft.EntityFrameworkCore;
+using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
@@ -29,29 +26,46 @@ namespace SportsPro.Controllers
                 .Include(i => i.Product)
                 .ToList();
 
-            return View(Incidents);
+            var viewModel = new IncidentFViewModel
+            {
+                Incidents = Incidents,
+                Filter = ""
+            };
+
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Action = "Add";
-            ViewBag.Customers = context.Customers.ToList();
-            ViewBag.Technicians = context.Technicians.ToList();
-            ViewBag.Products = context.Products.ToList();
-            return View("Edit", new Incident());
+            var viewModel = new IncidentAEViewModel
+            {
+                Incident = new Incident(),
+                Customers = context.Customers.ToList(),
+                Products = context.Products.ToList(),
+                Technicians = context.Technicians.ToList(),
+                Action = "Add"
+            };
+
+            return View("Edit", viewModel);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Action = "Edit";
-            ViewBag.Customers = context.Customers.ToList();
-            ViewBag.Technicians = context.Technicians.ToList();
-            ViewBag.Products = context.Products.ToList();
             var t = context.Incidents.Find(id);
-            return View(t);
+            var viewModel = new IncidentAEViewModel
+            {
+                Incident = t,
+                Customers = context.Customers.ToList(),
+                Products = context.Products.ToList(),
+                Technicians = context.Technicians.ToList(),
+                Action = "Edit"
+            };
+            return View(viewModel);
         }
+
         [HttpPost]
                 public RedirectToActionResult Edit(Incident incident)
                 {

@@ -1,0 +1,45 @@
+﻿@model Incident
+@{
+
+}
+
+<h1 class="jumbotron">Edit Incident</h1>
+
+<form asp-action="Edit" asp-controller="TechIncident" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="IncidentID" type="hidden" value="@Model.IncidentID" />
+    <input asp-for="TechnicianID" type="hidden" value="@Model.TechnicianID" />
+    <div class="form-group">
+        <label>Technician</label>
+        <input type="text" class="form-control" value="@Model.Technician.Name" readonly />
+    </div>
+    <div class="form-group">
+        <label>Customer</label>
+        <input type="text" class="form-control" value="@Model.Customer.FullName" readonly />
+    </div>
+    <div class="form-group">
+        <label>Product</label>
+        <input type="text" class="form-control" value="@Model.Product.Name" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" readonly class="form-control" id="title" placeholder="Title" value="@Model.Title">
+    </div>
+
+    <div class="form-group">
+        <label for="odate">Date Opened</label>
+        <input readonly type="datetime" class="form-control" id="odate" placeholder="DateOpened" value=@Model.DateOpened>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input asp-for="@Model.Description" type="text" class="form-control" id="description" placeholder="Description" required value=@Model.Description>
+    </div>
+
+    <div class="form-group">
+        <label for="cdate">Date Closed</label>
+        <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
+    <a asp-controller="TechIncident" asp-action="List" asp-route-id="@Model.TechnicianID" class="btn btn-primary">Cancel</a>
+</form>
