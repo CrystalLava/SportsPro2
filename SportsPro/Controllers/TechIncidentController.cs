@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
 using SportsPro.ViewModels;
@@ -28,6 +29,8 @@ namespace SportsPro.Controllers
         [HttpGet]
         public ViewResult List(int id)
         {
+            int? sessionID = HttpContext.Session.GetInt32("sessionID");
+
             var technician = context.Technicians.Find(id);
             var viewModel = new TechIncidentViewModel
             {
@@ -59,9 +62,11 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Edit(Incident incident)
         {
+
             var i = context.Incidents.Find(incident.IncidentID);
             i.Description = incident.Description;
             i.DateClosed = incident.DateClosed;
+            HttpContext.Session.SetInt32("sessionID", (int)incident.TechnicianID);
             context.Incidents.Update(i);
             context.SaveChanges();
 

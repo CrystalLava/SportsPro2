@@ -21,6 +21,9 @@ namespace SportsPro
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Session state for Tech ID
+            services.AddMemoryCache();
+            services.AddSession();
 
             services.AddControllersWithViews();
             services.AddDbContext<SportsProContext>(options =>
@@ -46,13 +49,13 @@ namespace SportsPro
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
