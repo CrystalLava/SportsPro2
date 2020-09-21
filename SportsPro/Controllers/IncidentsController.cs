@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using SportsPro.Models;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.ViewModels;
@@ -14,9 +15,7 @@ namespace SportsPro.Controllers
         {
             this.context = context;
         }
-        [TempData]
-        public string Message { get; set; }
-
+      
 
         [Route("Incidents")] //Add Route
         public IActionResult Index()
@@ -31,6 +30,7 @@ namespace SportsPro.Controllers
                 Incidents = Incidents,
                 Filter = ""
             };
+            
 
             return View(viewModel);
         }
@@ -103,6 +103,14 @@ namespace SportsPro.Controllers
             return RedirectToAction("Index", "Incidents");
         }
 
+        public IActionResult FilterUnassigned()
+        {
 
+            return RedirectToAction("Index");
+        }
+        public IActionResult FilterOpen()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

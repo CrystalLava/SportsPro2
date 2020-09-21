@@ -54,6 +54,6 @@
         <label for="cdate">Date Closed</label>
         <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
     </div>
-    <button type="submit" class="btn btn-primary">Edit</button>
+    <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="TechIncident" asp-action="List" asp-route-id="@Model.TechnicianID" class="btn btn-info">Cancel</a>
 </form>

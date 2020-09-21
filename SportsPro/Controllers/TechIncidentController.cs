@@ -44,6 +44,7 @@ namespace SportsPro.Controllers
                     .ToList()
             };
 
+         
             return View(viewModel);
         }
 

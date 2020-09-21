@@ -44,22 +44,22 @@ namespace SportsPro.Controllers
         }
         	
          [HttpPost]
-                public RedirectToActionResult Edit(Customer customer)
-                {
-                    if (customer.CustomerID == 0)
-                    {
-                        Message = $"Added Customer {customer.FullName}";
-                        context.Customers.Add(customer);
-                    }
-                    else
-                    {
-                        Message = $"Edited Customer {customer.FullName}";
-                        context.Customers.Update(customer);
-                    }
+         public RedirectToActionResult Edit(Customer customer)
+         {
+            if (customer.CustomerID == 0)
+            {
+               Message = $"Added Customer {customer.FullName}";
+               context.Customers.Add(customer);
+            }
+            else
+            {
+               Message = $"Edited Customer {customer.FullName}";
+               context.Customers.Update(customer);
+            }
 
-                    context.SaveChanges();
-                    return RedirectToAction("Index", "Customers");
-                }
+            context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
+         }
        
         [HttpGet]
         public IActionResult Delete(int id)

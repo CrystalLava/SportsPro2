@@ -17,9 +17,24 @@
     {
         <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
     }
-
     <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
 </div>
+
+<div class="container">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link active" asp-controller="Incident" asp-action="Index">All Incidents</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Incident" asp-action="FilterUnassigned">Unassigned Incidents</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Incident" asp-action="FilterOpen">Open Incidents</a>
+        </li>
+
+    </ul>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
