@@ -5,9 +5,9 @@ namespace SportsPro.Models
 {
     public class Technician
     {
-		public int TechnicianID { get; set; }	   
+		public int TechnicianID { get; set; }
 
-		[Required]
+		[Required(ErrorMessage = "Please select a Technician name.")]
 		public string Name { get; set; }
 
 		[Required]
