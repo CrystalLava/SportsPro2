@@ -1,0 +1,16 @@
+﻿@model RegisterViewModel
+@{
+    ViewBag.Title = "Delete Product";
+}
+
+<h2>Confirm Deletion</h2>
+<h3>@Model.CurrentProduct.Name </h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Products" />
+    @*<input type="hidden" asp-for="Name" />*@
+
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a asp-controller="Registration" asp-action="Registrations"
+       class="btn btn-primary">Cancel</a>
+</form>

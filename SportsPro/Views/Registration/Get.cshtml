@@ -1,0 +1,30 @@
+﻿@model RegisterViewModel
+
+<h2>Get Customer</h2>
+
+<form asp-controller="Registration" asp-action="Registrations">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <div class="form-group">
+
+        <label asp-for="CurrentCustomer.CustomerID">Customer</label>
+        <select asp-for="CurrentCustomer.CustomerID" class="form-control">
+            <option value="">Please select one</option>
+            @foreach (Customer customer in Model.Customers)
+            {
+                <option value="@customer.CustomerID">@customer.FullName</option>
+            }
+        </select>
+        <span asp-validation-for="CurrentCustomer.CustomerID"></span>
+
+    </div>
+
+
+    <div>
+        <button type="submit" class="btn btn-primary">Select</button>
+
+        <a asp-controller="Home" asp-action="Index"
+           class="btn btn-primary">Cancel</a>
+    </div>
+</form>
