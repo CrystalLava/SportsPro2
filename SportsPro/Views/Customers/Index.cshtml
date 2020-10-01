@@ -1,0 +1,53 @@
+﻿@model List<Customer>
+@{
+    ViewBag.Title = "Customer Manager";
+    var msg = TempData["Message"]?.ToString();
+    var needsToShow = msg == null || msg == "" ? false : true;
+    bool deleted = false;
+    if (needsToShow)
+    {
+        deleted = msg.Contains("Delete");
+    }
+    TempData["Message"] = "";
+}
+
+<div class="text-center">
+
+    @if (needsToShow)
+    {
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+    }
+
+    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Customer Manager</b></h1>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in @Model)
+        {
+            <tr>
+                <td>@t.FullName</td>
+                <td>@t.Email</td>
+                <td>@t.City</td>
+                <td>
+                    <a asp-controller="Customers" asp-action="Edit" asp-route-id=@t.CustomerID class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Customers" asp-action="Delete" asp-route-id=@t.CustomerID class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+<br />
+<a asp-controller="Customers" asp-action="Add" class="btn btn-primary">Add Customer</a>

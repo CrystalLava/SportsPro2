@@ -1,0 +1,73 @@
+﻿@using SportsPro.ViewModels
+@using Microsoft.AspNetCore.Http
+@model IncidentViewModel
+@{
+    ViewBag.Title = "Incident Manager";
+    var msg = TempData["Message"]?.ToString();
+    var needsToShow = msg == null || msg == "" ? false : true;
+    bool deleted = false;
+    if (needsToShow)
+    {
+        deleted = msg.Contains("Delete");
+    }
+    TempData["Message"] = "";
+}
+
+<div class="text-center">
+    @if (needsToShow)
+    {
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+    }
+    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
+</div>
+
+<div class="container">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link active" asp-controller="Incidents" asp-action="FilterAll">All Incidents</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Incidents" asp-action="FilterUnassigned">Unassigned Incidents</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Incidents" asp-action="FilterOpen">Open Incidents</a>
+        </li>
+
+    </ul>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Product</th>
+            <th scope="col">Date Opened</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in @Model.Incidents)
+        {
+            <tr>
+                <td>@i.Title</td>
+                <td>@i.Customer.FullName</td>
+                <td>@i.Product.Name</td>
+                <td>@i.DateOpened</td>
+                <td>
+                    <a asp-controller="Incidents" asp-action="Edit"
+                       asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Incidents" asp-action="Delete"
+                       asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />
+<br />
+<a asp-controller="Incidents" asp-action="Add" class="btn btn-primary">Add Incident</a>

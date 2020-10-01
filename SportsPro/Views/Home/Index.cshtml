@@ -2,25 +2,25 @@
     ViewData["Title"] = "Technicians";
 }
 
-<h1>SportsPro Technical Support</h1>
+<h1 style="font-size:50px"><b>SportsPro Technical Support</b></h1>
 <p>Sports management software for the sports enthusiast</p>
 
-<h1>Admin</h1>
+<h1><b>Admin</b></h1>
 <div class="list-group">
-    <a asp-controller="Product" asp-action="List"
-       class="list-group-item">Manage Products</a>
-    <a asp-controller="Technician" asp-action="List"
-       class="list-group-item">Manage Technicians</a>
-    <a asp-controller="Customer" asp-action="List"
-       class="list-group-item">Manage Customers</a>
-    <a asp-controller="Incident" asp-action="List"
-       class="list-group-item">Manage Incidents</a>
-    <a asp-controller="Registration" asp-action="List"
-       class="list-group-item">Manage Registrations</a>
+    <a asp-controller="Products" asp-action="Index"
+       class="list-group-item list-group-item-info">Manage Products</a>
+    <a asp-controller="Technicians" asp-action="Index"
+       class="list-group-item list-group-item-info">Manage Technicians</a>
+    <a asp-controller="Customers" asp-action="Index"
+       class="list-group-item list-group-item-info">Manage Customers</a>
+    <a asp-controller="Incidents" asp-action="Index"
+       class="list-group-item list-group-item-info">Manage Incidents</a>
+    <a asp-controller="Registration" asp-action="GetCustomer"
+       class="list-group-item list-group-item-info">Manage Registrations</a>
 </div>
 
-<h1>Technicians</h1>
+<h1><b>Technicians</b></h1>
 <div class="list-group">
-    <a asp-controller="Incident" asp-action="ListByTech"
-       class="list-group-item">Update Incident</a>
+    <a asp-controller="TechIncident" asp-action="Get"
+       class="list-group-item list-group-item-info">Update Incident</a>
 </div>

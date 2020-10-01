@@ -1,0 +1,39 @@
+﻿@model Product
+@{
+    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    ViewBag.Title = title;
+    ViewBag.Date = ViewBag.Action == "Add" ? DateTime.Now : Model.ReleaseDate;
+}
+
+@*Add Validation to Add Edit Pages*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="text-center">
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Product</b></h1>
+</div>
+
+<form asp-action="Edit" asp-controller="Products" method="post">
+    @if (ViewBag.Action == "Edit")
+    {
+        <input asp-for="ProductID" type="hidden" value="@Model.ProductID" />
+    }
+    <div class="form-group">
+        <label for="code">Code</label>
+        <input asp-for="ProductCode" type="text" class="form-control" id="code" placeholder="Enter Code" value=@Model.ProductCode>
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Name" value=@Model.Name>
+    </div>
+    <div class="form-group">
+        <label for="price">Yearly Price</label>
+        <input asp-for="YearlyPrice" type="text" class="form-control" id="price" placeholder="Yearly Price" value=@Model.YearlyPrice>
+    </div>
+    <div class="form-group">
+        <label for="date">Release Date</label>
+        <input asp-for="ReleaseDate" type="datetime" class="form-control" id="date" placeholder="Release Date" value="@ViewBag.Date">
+    </div>
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-info">Cancel</a>
+</form>

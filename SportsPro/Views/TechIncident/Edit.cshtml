@@ -1,0 +1,59 @@
+﻿@model Incident
+@{
+    ViewData["Title"] = "Edit Technician";
+}
+
+<div class="text-center">
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>Edit Incident</b></h1>
+</div>
+<form asp-action="Edit" asp-controller="TechIncident" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="IncidentID" type="hidden" value="@Model.IncidentID" />
+    <input asp-for="TechnicianID" type="hidden" value="@Model.TechnicianID" />
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Technician:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="@Model.Technician.Name" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Customer:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="@Model.Customer.FullName" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Product:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="@Model.Product.Name" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="title">Title:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="title" placeholder="Title" value="@Model.Title">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="odate">Date Opened:</label>
+        <div class="col-sm-10">
+            <input readonly type="datetime" class="form-control-plaintext" id="odate" placeholder="DateOpened" value=@Model.DateOpened>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea asp-for="@Model.Description"  class="form-control" rows="5" id="description" placeholder="Description" required value=@Model.Description></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="cdate">Date Closed</label>
+        <input asp-for="DateClosed" type="datetime" class="form-control" id="cdate" placeholder="Date Closed" value=@Model.DateClosed>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="TechIncident" asp-action="List" asp-route-id="@Model.TechnicianID" class="btn btn-info">Cancel</a>
+</form>
