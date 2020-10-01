@@ -1,5 +1,6 @@
 ﻿@using SportsPro.ViewModels
-@model IncidentFViewModel
+@using Microsoft.AspNetCore.Http
+@model IncidentViewModel
 @{
     ViewBag.Title = "Incident Manager";
     var msg = TempData["Message"]?.ToString();
@@ -23,13 +24,13 @@
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link active" asp-controller="Incident" asp-action="Index">All Incidents</a>
+            <a class="nav-link active" asp-controller="Incidents" asp-action="FilterAll">All Incidents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Incident" asp-action="FilterUnassigned">Unassigned Incidents</a>
+            <a class="nav-link" asp-controller="Incidents" asp-action="FilterUnassigned">Unassigned Incidents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Incident" asp-action="FilterOpen">Open Incidents</a>
+            <a class="nav-link" asp-controller="Incidents" asp-action="FilterOpen">Open Incidents</a>
         </li>
 
     </ul>
@@ -55,10 +56,12 @@
                 <td>@i.Product.Name</td>
                 <td>@i.DateOpened</td>
                 <td>
-                    <a asp-controller="Incidents" asp-action="Edit" asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
+                    <a asp-controller="Incidents" asp-action="Edit"
+                       asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
                 </td>
                 <td>
-                    <a asp-controller="Incidents" asp-action="Delete" asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
+                    <a asp-controller="Incidents" asp-action="Delete"
+                       asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

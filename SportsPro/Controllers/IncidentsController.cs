@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using SportsPro.Models;
@@ -16,36 +17,42 @@ namespace SportsPro.Controllers
             this.context = context;
         }
       
-
         [Route("Incidents")] //Add Route
-        public IActionResult Index()
+        [HttpGet]
+        public ViewResult Index(string activeIncident = "All", string activeTechnician = "All")
         {
-            var Incidents = context.Incidents
-                .Include(i => i.Customer)
-                .Include(i => i.Product)
-                .ToList();
-
-            var viewModel = new IncidentFViewModel
+            string FilterString = HttpContext.Session.GetString("FilterString");
+            var model = new IncidentViewModel
             {
-                Incidents = Incidents,
-                Filter = ""
+                ActiveIncident = activeIncident,
+                ActiveTechnician = activeTechnician,
+                Incidents = context.Incidents.OrderBy(i => i.Title).ToList(),
+                Technicians = context.Technicians.OrderBy(c => c.Name).ToList(),
+                Customers = context.Customers.OrderBy(c => c.FirstName).ToList(),
+                Products = context.Products.OrderBy(p => p.Name).ToList(),
+
             };
-            
-
-            return View(viewModel);
+            IQueryable<Incident> query = context.Incidents;
+            if (FilterString != "null")
+            {
+                if (FilterString != "unassigned")
+                    query = query.Where(i => i.TechnicianID == null);
+                if (FilterString != "open")
+                    query = query.Where(i => i.DateClosed == null);
+            }
+            model.Incidents = query.ToList();
+            return View(model);
         }
-
 
         [HttpGet]
         public IActionResult Add()
         {
-            var viewModel = new IncidentAEViewModel
+            var viewModel = new IncidentViewModel
             {
-                Incident = new Incident(),
+                Action = "Add",
                 Customers = context.Customers.ToList(),
                 Products = context.Products.ToList(),
-                Technicians = context.Technicians.ToList(),
-                Action = "Add"
+                Technicians = context.Technicians.ToList()
             };
 
             return View("Edit", viewModel);
@@ -55,9 +62,9 @@ namespace SportsPro.Controllers
         public IActionResult Edit(int id)
         {
             var t = context.Incidents.Find(id);
-            var viewModel = new IncidentAEViewModel
+            var viewModel = new IncidentViewModel
             {
-                Incident = t,
+                CurrentIncident = t,
                 Customers = context.Customers.ToList(),
                 Products = context.Products.ToList(),
                 Technicians = context.Technicians.ToList(),
@@ -67,19 +74,17 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(IncidentAEViewModel viewModel)
+        public IActionResult Edit(IncidentViewModel viewModel)
         {
-            if (viewModel.Incident.IncidentID == 0)
-                context.Incidents.Add(viewModel.Incident);
+            if (viewModel.CurrentIncident.IncidentID == 0)
+                context.Incidents.Add(viewModel.CurrentIncident);
             else
-                context.Incidents.Update(viewModel.Incident);
+                context.Incidents.Update(viewModel.CurrentIncident);
 
             context.SaveChanges();
 
             return RedirectToAction("Index", "Incidents");
         }
-
-
 
         [HttpGet]
         public IActionResult Delete(int id)
@@ -103,13 +108,21 @@ namespace SportsPro.Controllers
             return RedirectToAction("Index", "Incidents");
         }
 
-        public IActionResult FilterUnassigned()
+        public IActionResult FilterAll()
         {
-
+            HttpContext.Session.SetString("FilterString", "null");
             return RedirectToAction("Index");
         }
+
+        public IActionResult FilterUnassigned()
+        {
+            HttpContext.Session.SetString("FilterString", "unassigned");
+            return RedirectToAction("Index");
+        }
+
         public IActionResult FilterOpen()
         {
+            HttpContext.Session.SetString("FilterString", "open");
             return RedirectToAction("Index");
         }
     }
