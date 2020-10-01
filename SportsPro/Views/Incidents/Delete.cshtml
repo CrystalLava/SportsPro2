@@ -4,9 +4,7 @@
 }
 <div class="alert alert-danger">
     <h2>Confirm Deletion</h2>
-    <h3>Customer: @Model.Customer.FullName</h3>
-    <h3>Technician: @Model.Technician.Name</h3>
-    <h3>Product: @Model.Product.Name</h3>
+    <h3>@Model.Customer</h3>
 
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="IncidentID" />

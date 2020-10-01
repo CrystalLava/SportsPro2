@@ -10,11 +10,23 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="text-center">
-    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@Model.Action Incident</b></h1>
+    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@Model.Action Edit Incident</b></h1>
 </div>
 
 <form asp-action="Edit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="CurrentIncident.TechnicianID">Technician</label>
+        <select asp-for="CurrentIncident.TechnicianID" class="form-control">
+            <option value="">Please select one</option>
+            @foreach (Technician g in Model.Technicians)
+            {
+                <option value="@g.TechnicianID">@g.Name</option>
+            }
+        </select>
+        <span asp-validation-for="CurrentIncident.TechnicianID"></span>
+    </div>
 
     <div class="form-group">
         <label asp-for="CurrentIncident.CustomerID">Customer</label>
@@ -47,27 +59,15 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="CurrentIncident.Description">Description</label>
-        <input asp-for="CurrentIncident.Description" class="form-control">
-        <span asp-validation-for="CurrentIncident.Description"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CurrentIncident.TechnicianID">Technician</label>
-        <select asp-for="CurrentIncident.TechnicianID" class="form-control">
-            <option value="">Please select one</option>
-            @foreach (Technician g in Model.Technicians)
-            {
-                <option value="@g.TechnicianID">@g.Name</option>
-            }
-        </select>
-        <span asp-validation-for="CurrentIncident.TechnicianID"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="CurrentIncident.DateOpened">Date Opened</label>
         <input asp-for="CurrentIncident.DateOpened" class="form-control">
         <span asp-validation-for="CurrentIncident.DateOpened"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentIncident.Description">Description</label>
+        <input asp-for="CurrentIncident.Description" class="form-control">
+        <span asp-validation-for="CurrentIncident.Description"></span>
     </div>
 
     <div class="form-group">
@@ -76,7 +76,7 @@
         <span asp-validation-for="CurrentIncident.DateClosed"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">@Model.Action</button>
+    <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Incidents" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>
 
