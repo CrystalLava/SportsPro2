@@ -22,7 +22,7 @@ namespace SportsPro.Controllers
         [Route("Customers")]// Add Route
         public IActionResult Index()
         {
-            var Customers = context.Customers.ToList();
+            var Customers = context.Customers.OrderBy(g => g.FirstName).ToList();
             return View(Customers);
         }
 
@@ -30,7 +30,7 @@ namespace SportsPro.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
-            ViewBag.Countries = context.Countries.ToList();
+            ViewBag.Countries = context.Countries.OrderBy(g => g.Name).ToList();
             return View("Edit", new Customer());
         }
 
@@ -38,7 +38,7 @@ namespace SportsPro.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            ViewBag.Countries = context.Countries.ToList();
+            ViewBag.Countries = context.Countries.OrderBy(g => g.Name).ToList();
             var t = context.Customers.Find(id);
             return View(t);
         }
@@ -69,7 +69,6 @@ namespace SportsPro.Controllers
             return View(t);
         }
 
-
         [HttpPost]
         public IActionResult Delete(Customer customer)
         {
@@ -78,7 +77,6 @@ namespace SportsPro.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
-
     }
 }
 

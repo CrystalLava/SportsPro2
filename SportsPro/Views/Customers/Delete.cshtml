@@ -8,6 +8,7 @@
 
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="CustomerID" />
+        <input type="hidden" asp-for="FullName" />
 
         <button type="submit" class="btn btn-primary">Delete</button>
         <a asp-controller="Customers" asp-action="Index"

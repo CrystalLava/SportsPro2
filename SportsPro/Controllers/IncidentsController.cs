@@ -22,7 +22,7 @@ namespace SportsPro.Controllers
         public ViewResult Index(string activeIncident = "All", string activeTechnician = "All")
         {
             string FilterString = HttpContext.Session.GetString("FilterString");
-            var model = new IncidentViewModel
+            var viewModel = new IncidentViewModel
             {
                 ActiveIncident = activeIncident,
                 ActiveTechnician = activeTechnician,
@@ -40,8 +40,8 @@ namespace SportsPro.Controllers
                 if (FilterString != "open")
                     query = query.Where(i => i.DateClosed == null);
             }
-            model.Incidents = query.ToList();
-            return View(model);
+            viewModel.Incidents = query.ToList();
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -65,28 +65,45 @@ namespace SportsPro.Controllers
             var viewModel = new IncidentViewModel
             {
                 CurrentIncident = t,
-                Customers = context.Customers.ToList(),
-                Products = context.Products.ToList(),
-                Technicians = context.Technicians.ToList(),
+                Customers = context.Customers.OrderBy(c => c.FirstName).ToList(),
+                Products = context.Products.OrderBy(p => p.Name).ToList(),
+                Technicians = context.Technicians.OrderBy(c => c.Name).ToList(),
                 Action = "Edit"
             };
-            return View(viewModel);
+            return View("Edit", viewModel);
         }
 
         [HttpPost]
         public IActionResult Edit(IncidentViewModel viewModel)
         {
+            string Action = "Edit";
             if (viewModel.CurrentIncident.IncidentID == 0)
-                context.Incidents.Add(viewModel.CurrentIncident);
+                Action = "Add";
+
+            if (ModelState.IsValid)
+            {
+                if (viewModel.CurrentIncident.IncidentID == 0)
+                    context.Incidents.Add(viewModel.CurrentIncident);
+                else
+                    context.Incidents.Update(viewModel.CurrentIncident);
+
+                context.SaveChanges();
+                TempData["message"] = $"{viewModel.CurrentIncident.Title} {Action}ed.";
+                return RedirectToAction("Index", "Incidents");
+            }
             else
-                context.Incidents.Update(viewModel.CurrentIncident);
+            {
+                viewModel.Action = Action;
+                viewModel.Customers = context.Customers.OrderBy(c => c.FirstName).ToList();
+                viewModel.Technicians = context.Technicians.OrderBy(c => c.Name).ToList();
+                viewModel.Products = context.Products.OrderBy(p => p.Name).ToList();
 
-            context.SaveChanges();
-
-            return RedirectToAction("Index", "Incidents");
+                return View(viewModel);
+            }
         }
 
         [HttpGet]
+
         public IActionResult Delete(int id)
         {
             ViewBag.Action = "Delete";
@@ -102,6 +119,7 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Delete(Incident t)
         {
+            TempData["message"] = $"Deleted Incident {t.Title}";
             ViewBag.Action = "";
             context.Incidents.Remove(t);
             context.SaveChanges();
