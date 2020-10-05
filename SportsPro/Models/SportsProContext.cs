@@ -15,6 +15,8 @@ namespace SportsPro.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Incident> Incidents { get; set; }
 
+        public DbSet<Registration> Registrations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasData(
