@@ -48,9 +48,9 @@
         <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.Countries, "CountryID", "Name", // use the asp- items tag helper instead of Select
                          Model.CountryID))"
                 class="form-control">
-            <option value="">Select a Country</option>
+         
 
-           
+
         </select>
     </div>
     <div class="form-group">
@@ -61,6 +61,6 @@
         <label for="phone">Phone</label>
         <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
     </div>
-    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Customers" asp-action="Index" class="btn btn-info">Cancel</a>
 </form>

@@ -20,6 +20,7 @@ namespace SportsPro.Controllers
         [Route("Incidents")] //Add Route
         [HttpGet]
         public ViewResult Index(string activeIncident = "All", string activeTechnician = "All")
+       
         {
             string FilterString = HttpContext.Session.GetString("FilterString");
             var viewModel = new IncidentViewModel
