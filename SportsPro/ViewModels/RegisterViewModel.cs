@@ -33,6 +33,8 @@ namespace SportsPro.Models
 
         public int? CustomerID { get; set; }
 
+        public string WarningText { get; set; }
+
         private List<Product> products;
 
         public List<Product> Products

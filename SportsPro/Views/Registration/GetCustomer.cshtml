@@ -16,7 +16,7 @@
                 <option value="@customer.CustomerID">@customer.FullName</option>
             }
         </select>
-        <span asp-validation-for="CurrentCustomer.CustomerID"></span>
+        <span asp-validation-for="CurrentCustomer.CustomerID" style="color:red">@Model.WarningText</span>
 
     </div>
 

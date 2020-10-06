@@ -19,7 +19,7 @@ namespace SportsPro.Controllers
         }
 
         [HttpGet]
-        public ViewResult GetCustomer()
+        public ViewResult GetCustomer(string error=null)
         {
             var model = new RegisterViewModel
             {
@@ -32,7 +32,14 @@ namespace SportsPro.Controllers
 
             };
             IQueryable<Customer> query = context.Customers;
+
+            if(error == "not_select")
+            {
+                model.WarningText = "Please select a customer!";
+            }
+
             model.Customers = query.ToList();
+           
             return View(model);
         }
 
@@ -65,10 +72,15 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public ViewResult Registrations(RegisterViewModel inc)
+        public ActionResult Registrations(RegisterViewModel inc)
 
         {
             var custId = inc.CurrentCustomer.CustomerID;
+
+            if(custId == 0)
+            {
+                return RedirectToAction("GetCustomer", new { @error = "not_select" });
+            }
             var customer = context.Customers.Single(c => c.CustomerID == custId);
             var model = new RegisterViewModel
             {
