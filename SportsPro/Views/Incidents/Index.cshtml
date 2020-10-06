@@ -49,20 +49,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Incident incident in @Model.Incidents)
+        @foreach (var i in @Model.Incidents)
         {
             <tr>
-                <td>@incident.Title</td>
-                <td>@incident.Customer.FullName</td>
-                <td>@incident.Product.Name</td>
-                <td>@incident.DateOpened</td>
+                <td>@i.Title</td>
+                <td>@i.Customer.FullName</td>
+                <td>@i.Product.Name</td>
+                <td>@i.DateOpened</td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Edit"
-                       asp-route-id=@incident.IncidentID class="btn btn-primary">Edit</a>
+                       asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
                 </td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Delete"
-                       asp-route-id=@incident.IncidentID class="btn btn-danger">Delete</a>
+                       asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
