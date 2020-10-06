@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Incident Manager";
     var msg = TempData["Message"]?.ToString();
+    string FilterString = Context.Session.GetString("FilterString");
     var needsToShow = msg == null || msg == "" ? false : true;
     bool deleted = false;
     if (needsToShow)
@@ -24,13 +25,13 @@
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link active" asp-controller="Incidents" asp-action="FilterAll">All Incidents</a>
+            <a class="nav-link @((FilterString == "null" || FilterString == null) ? "active": "")" asp-controller="Incidents" asp-action="FilterAll">All Incidents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Incidents" asp-action="FilterUnassigned">Unassigned Incidents</a>
+            <a class="nav-link @(FilterString == "unassigned" ? "active": "")"  asp-controller="Incidents" asp-action="FilterUnassigned">Unassigned Incidents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Incidents" asp-action="FilterOpen">Open Incidents</a>
+            <a class="nav-link @(FilterString == "open" ? "active": "")" asp-controller="Incidents" asp-action="FilterOpen">Open Incidents</a>
         </li>
 
     </ul>
@@ -48,20 +49,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var i in @Model.Incidents)
+        @foreach (Incident incident in @Model.Incidents)
         {
             <tr>
-                <td>@i.Title</td>
-                <td>@i.Customer.FullName</td>
-                <td>@i.Product.Name</td>
-                <td>@i.DateOpened</td>
+                <td>@incident.Title</td>
+                <td>@incident.Customer.FullName</td>
+                <td>@incident.Product.Name</td>
+                <td>@incident.DateOpened</td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Edit"
-                       asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
+                       asp-route-id=@incident.IncidentID class="btn btn-primary">Edit</a>
                 </td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Delete"
-                       asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
+                       asp-route-id=@incident.IncidentID class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
