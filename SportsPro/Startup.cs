@@ -1,11 +1,16 @@
 using Microsoft.AspNetCore.Builder;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.HttpsPolicy;
 
 namespace SportsPro
 {
@@ -25,19 +30,35 @@ namespace SportsPro
             services.AddMemoryCache();
             services.AddSession();
 
-            services.AddControllersWithViews();
+            
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsProContext")));
 
-            services.AddRouting(options => {
+            services.AddDefaultIdentity<IdentityUser>(
+                Options =>
+                {
+                    Options.Password.RequireDigit = false;
+                    Options.Password.RequiredLength = 4;
+                    Options.Password.RequireNonAlphanumeric = false;
+                    Options.Password.RequireUppercase = false;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<SportsProContext>();
+
+            services.AddControllersWithViews();
+
+            services.AddRouting(options =>
+            {
                 options.LowercaseUrls = true;
                 options.AppendTrailingSlash = true;
             });
-        }
+
+         }
 
         // Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +75,7 @@ namespace SportsPro
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseSession();
             app.UseEndpoints(endpoints =>
