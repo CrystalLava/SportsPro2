@@ -1,14 +1,15 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SportsPro.Models
 {
-    public class SportsProContext : DbContext
+    public class SportsProContext : IdentityDbContext
     {
         public SportsProContext(DbContextOptions<SportsProContext> options)
             : base(options)
         { }
-
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Country> Countries { get; set; }

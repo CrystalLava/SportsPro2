@@ -47,19 +47,15 @@
     <input asp-for="PostalCode" type="text" class="form-control" id="postal" placeholder="Postal Code" value=@Model.PostalCode>
     <span asp-validation-for="PostalCode" class="text-danger"></span>
 </div>
-    <div class="form-group">
+<div class="form-group">
 
-        <label asp-for="CountryID">Country</label>
-      
+    <label asp-for="CountryID">Country</label>
 
-        <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.Countries, "CountryID", "Name", // use the asp- items tag helper instead of Select
-                         Model.CountryID))"
-                class="form-control">
-         
-
-
-        </select>
-    </div>
+    <!--use the asp- items tag helper instead of Select-->
+    <select asp-for="CountryID" asp-items="@(new SelectList
+        (ViewBag.Countries, "CountryID", "Name", Model.CountryID))"class="form-control">
+    </select>
+</div>
     <div class="form-group">
         <label for="email">Email</label>
         <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter Email" value=@Model.Email>
