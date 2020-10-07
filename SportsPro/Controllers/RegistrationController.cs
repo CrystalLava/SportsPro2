@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
 
@@ -81,6 +83,8 @@ namespace SportsPro.Controllers
             {
                 return RedirectToAction("GetCustomer", new { @error = "not_select" });
             }
+            HttpContext.Session.SetInt32("customerId", custId);
+
             var customer = context.Customers.Single(c => c.CustomerID == custId);
             var model = new RegisterViewModel
             {
@@ -91,6 +95,29 @@ namespace SportsPro.Controllers
 
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RegisterProduct(RegisterViewModel inc)
+
+        {
+            var custId = HttpContext.Session.GetInt32("customerId");
+
+            if (!custId.HasValue || custId == 0)
+            {
+                return RedirectToAction("GetCustomer", new { @error = "not_select" });
+            }
+            var customer = context.Customers.Single(c => c.CustomerID == custId);
+
+            context.Registrations.Add(new Registration
+            {
+                CustomerID = custId.Value,
+                ProductID = inc.CurrentProduct.ProductID
+            });
+
+            context.SaveChanges();
+     
+            return RedirectToAction("Registrations");
         }
 
         [HttpGet]
