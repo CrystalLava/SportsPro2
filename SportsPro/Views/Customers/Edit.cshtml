@@ -17,30 +17,36 @@
     {
         <input asp-for="CustomerID" type="hidden" value="@Model.CustomerID" />
     }
-    <div class="form-group">
-        <label for="fName">First Name</label>
-        <input asp-for="FirstName" type="text" class="form-control" id="fName" placeholder="First Name" value=@Model.FirstName>
-    </div>
-    <div class="form-group">
-        <label for="lName">Last Name</label>
-        <input asp-for="LastName" type="text" class="form-control" id="lName" placeholder="Last Name" value=@Model.LastName>
-    </div>
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input asp-for="Address" type="text" class="form-control" id="address" placeholder="Address" value=@Model.Address>
-    </div>
-    <div class="form-group">
-        <label for="city">City</label>
-        <input asp-for="City" type="text" class="form-control" id="city" placeholder="City" value=@Model.City>
-    </div>
-    <div class="form-group">
-        <label for="state">State</label>
-        <input asp-for="State" type="text" class="form-control" id="state" placeholder="State" value=@Model.State>
-    </div>
-    <div class="form-group">
-        <label for="postal">Postal Code</label>
-        <input asp-for="PostalCode" type="text" class="form-control" id="postal" placeholder="Postal Code" value=@Model.PostalCode>
-    </div>
+<div class="form-group">
+    <label for="fName">First Name</label>
+    <input asp-for="FirstName" type="text" class="form-control" id="fName" placeholder="First Name" value=@Model.FirstName>
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label for="lName">Last Name</label>
+    <input asp-for="LastName" type="text" class="form-control" id="lName" placeholder="Last Name" value=@Model.LastName>
+    <span asp-validation-for="LastName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label for="address">Address</label>
+    <input asp-for="Address" type="text" class="form-control" id="address" placeholder="Address" value=@Model.Address>
+    <span asp-validation-for="Address" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label for="city">City</label>
+    <input asp-for="City" type="text" class="form-control" id="city" placeholder="City" value=@Model.City>
+    <span asp-validation-for="City" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label for="state">State</label>
+    <input asp-for="State" type="text" class="form-control" id="state" placeholder="State" value=@Model.State>
+    <span asp-validation-for="State" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label for="postal">Postal Code</label>
+    <input asp-for="PostalCode" type="text" class="form-control" id="postal" placeholder="Postal Code" value=@Model.PostalCode>
+    <span asp-validation-for="PostalCode" class="text-danger"></span>
+</div>
     <div class="form-group">
 
         <label asp-for="CountryID">Country</label>
@@ -57,10 +63,12 @@
     <div class="form-group">
         <label for="email">Email</label>
         <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter Email" value=@Model.Email>
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label for="phone">Phone</label>
         <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
+        <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Customers" asp-action="Index" class="btn btn-info">Cancel</a>
