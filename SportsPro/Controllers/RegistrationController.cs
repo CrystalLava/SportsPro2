@@ -57,12 +57,23 @@ namespace SportsPro.Controllers
         public ViewResult Registrations(string activeIncident = "All", string activeTechnician = "All")
         {
 
+            var custId = HttpContext.Session.GetInt32("customerId");
+            var customerProducts = new List<Product>();
+
+            if (custId.HasValue && custId > 0)
+            {
+                  customerProducts = (from r in context.Registrations
+                                        join p in context.Products on r.ProductID equals p.ProductID
+                                        where r.CustomerID == custId
+                                        select p).OrderBy(p => p.Name).ToList();
+            }
+
             var model = new RegisterViewModel
             {
-
                 Customers = context.Customers.OrderBy(c => c.FirstName).ToList(),
                 Products = context.Products.OrderBy(p => p.Name).ToList(),
-
+                CustomerProducts = customerProducts,
+                WarningText = TempData["message"].ToString()
             };
             //IQueryable<Incident> query = context.Incidents;
             //if (activeIncident != "All")
@@ -91,6 +102,10 @@ namespace SportsPro.Controllers
                 //Products = context.Products.Where(g => g.ProductID == custId).OrderBy(a => a.Registrations).ToList(),
                 Customers = context.Customers.OrderBy(c => c.FirstName).ToList(),
                 Products = context.Products.OrderBy(p => p.Name).ToList(),
+                CustomerProducts = (from r in context.Registrations
+                           join p in context.Products on r.ProductID equals p.ProductID
+                           where r.CustomerID == custId
+                           select p).OrderBy(p=> p.Name).ToList(),
                 ActiveCustomer = customer.FullName
 
             };
@@ -124,12 +139,14 @@ namespace SportsPro.Controllers
         public ViewResult Delete(int id)
         {
             var product = context.Products.Find(id);
+ 
             return View(product);
         }
 
         [HttpPost]
-        public RedirectToActionResult Delete(Product product)
+        public ActionResult DeleteProduct(int productId)
         {
+            var product = context.Products.Find(productId);
             context.Products.Remove(product);
             context.SaveChanges();
             TempData["message"] = $"{product.Name} deleted from database";
