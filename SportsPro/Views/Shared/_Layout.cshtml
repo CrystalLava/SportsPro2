@@ -49,8 +49,14 @@
         </nav>
     </header>
     <div class="container">
+
+        @if (TempData.ContainsKey("message"))
+        {
+            <h4 class="bg-light text-center p-3">@TempData["message"]</h4>
+        }
         <main role="main" class="pb-5">
             @RenderBody()
+
         </main>
     </div>
 

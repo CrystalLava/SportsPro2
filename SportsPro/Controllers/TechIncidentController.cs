@@ -27,35 +27,46 @@ namespace SportsPro.Controllers
         }
 
         [HttpGet]
-        public ViewResult List(int id)
+        public IActionResult List(int id)
         {
             int? sessionID = HttpContext.Session.GetInt32("sessionID");
-
-            var technician = context.Technicians.Find(id);
-            var viewModel = new TechIncidentViewModel
+            if (id != 0)
             {
-                Technician = technician,
-                Incidents = context
-                    .Incidents
-                    .Include(i => i.Customer)
-                    .Include(i => i.Product)
-                    .Where(i => i.TechnicianID == technician.TechnicianID &&
-                                i.DateClosed == null)
-                    .ToList()
-            };
 
-         
-            return View(viewModel);
+                var technician = context.Technicians.Find(id);
+                var viewModel = new TechIncidentViewModel
+                {
+                    Technician = technician,
+                    Incidents = context
+                        .Incidents
+                        .Include(i => i.Customer)
+                        .Include(i => i.Product)
+                        .Where(i => i.TechnicianID == technician.TechnicianID
+                        && i.DateClosed == null)
+                        .ToList()
+                };
+                if (viewModel.Incidents.Count == 0)
+                    TempData["message"] = $"No open incidents for this Technicien";
+
+                return View(viewModel);
+            }
+            else
+            {
+                TempData["message"] = $"Please enter a  Technicien";
+                //return RedirectToActionResult ("get");
+                return RedirectToAction("Get");
+            }
         }
+
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var i = context.Incidents
-                .Include(i => i.Customer)
+                 .Include(i => i.Customer)
                 .Include(i => i.Product)
                 .Include(i => i.Technician)
-                .SingleOrDefault(i => i.IncidentID == id);
+                 .SingleOrDefault(i => i.IncidentID == id);
             return View(i);
         }
 
