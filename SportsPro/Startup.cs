@@ -52,7 +52,7 @@ namespace SportsPro
             });
 
             services.AddControllersWithViews();
-
+            services.AddRazorPages();
             services.AddRouting(options =>
             {
                 options.LowercaseUrls = true;
@@ -60,6 +60,11 @@ namespace SportsPro
             });
 
          }
+        /*using (IServiceScope scope = app.ApplicationServices.CreateScope()) {
+    RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    // Seed database code goes here
+}*/
         private async Task CreateUserRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
