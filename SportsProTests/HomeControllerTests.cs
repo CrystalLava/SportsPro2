@@ -4,38 +4,16 @@ using Moq;
 using SportsPro.Controllers;
 using SportsPro.Models.DataLayer;
 using SportsPro.Models;
+using System;
 using Xunit;
-
-namespace SportsProTests.Tests
+namespace XUnitTestProject2.Tests
 {
-    public class ProductsControllerTests
+    public class HomeControllerTests
     {
         [Fact]
-        public void ListActionMethod_ReturnsAViewResult()
+        public void IndexActionMethod_ReturnsAViewResult()
         {
-            //arrange
-            var unit = new Mock<IUnitOfWork>();
-            var products = new Mock<IGRepository<Product>>();
-            var customers = new Mock<IGRepository<Customer>>();
-            unit.Setup(r => r.ProductRepository).Returns(products.Object);
-            //unit.Setup(r => r.CustomerRepository).Returns(customers.Object);
-
-            var http = new Mock<IHttpContextAccessor>();
-
-            var controller = new ProductsController(unit.Object);
-
-            //act
-            var result = controller.Index();
-
-            //assert
-            Assert.IsType<ViewResult>(result);
-
-
-        }
-        [Fact]
-        public void AddActionMethod_ReturnsAViewResult()
-        {
-            //arrange
+            // arrange
             var unit = new Mock<IUnitOfWork>();
             var products = new Mock<IGRepository<Product>>();
             var customers = new Mock<IGRepository<Customer>>();
@@ -44,16 +22,33 @@ namespace SportsProTests.Tests
 
             var http = new Mock<IHttpContextAccessor>();
 
-            var controller = new ProductsController(unit.Object);
+            var controller = new HomeController();
 
-            //act
-            var result = controller.Add();
+            // act
+            var result = controller.Index();
 
-            //assert
+            // assert
             Assert.IsType<ViewResult>(result);
-
-
         }
+        [Fact]
+        public void AboutActionMethod_ReturnsAViewResult()
+        {
+            // arrange
+            var unit = new Mock<IUnitOfWork>();
+            var products = new Mock<IGRepository<Product>>();
+            var customers = new Mock<IGRepository<Customer>>();
+            unit.Setup(r => r.ProductRepository).Returns(products.Object);
+            unit.Setup(r => r.CustomerRepository).Returns(customers.Object);
 
+            var http = new Mock<IHttpContextAccessor>();
+
+            var controller = new HomeController();
+
+            // act
+            var result = controller.About();
+
+            // assert
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }

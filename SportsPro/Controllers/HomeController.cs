@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 
@@ -19,12 +14,12 @@ namespace SportsPro.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public ViewResult Privacy()
         {
             return View();
         }
@@ -32,7 +27,7 @@ namespace SportsPro.Controllers
           
 
     [Route("About")] //Add Route
-        public IActionResult About()
+        public ViewResult About()
         {
             return View();
         }

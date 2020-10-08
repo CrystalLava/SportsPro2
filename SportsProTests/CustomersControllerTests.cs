@@ -4,11 +4,12 @@ using Moq;
 using SportsPro.Controllers;
 using SportsPro.Models.DataLayer;
 using SportsPro.Models;
+using System;
 using Xunit;
 
-namespace SportsProTests.Tests
+namespace XUnitTestProject2.Tests
 {
-    public class ProductsControllerTests
+    public class CustomerControllerTests
     {
         [Fact]
         public void ListActionMethod_ReturnsAViewResult()
@@ -18,7 +19,7 @@ namespace SportsProTests.Tests
             var products = new Mock<IGRepository<Product>>();
             var customers = new Mock<IGRepository<Customer>>();
             unit.Setup(r => r.ProductRepository).Returns(products.Object);
-            //unit.Setup(r => r.CustomerRepository).Returns(customers.Object);
+            unit.Setup(r => r.CustomerRepository).Returns(customers.Object);
 
             var http = new Mock<IHttpContextAccessor>();
 
@@ -54,6 +55,5 @@ namespace SportsProTests.Tests
 
 
         }
-
     }
 }
