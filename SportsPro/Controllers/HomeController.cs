@@ -12,14 +12,14 @@ namespace SportsPro.Controllers
   
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
@@ -28,7 +28,7 @@ namespace SportsPro.Controllers
           
 
     [Route("About")] //Add Route
-        public IActionResult About()
+        public ViewResult About()
         {
             return View();
         }
