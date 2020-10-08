@@ -605,6 +605,24 @@ namespace SportsPro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SportsPro.Models.Registration", b =>
+            {
+                b.Property<int?>("CustomerID")
+                    .HasColumnType("int");
+
+                b.Property<int?>("ProductID")
+                    .HasColumnType("int");
+
+                b.Property<string>("ActiveCustomer")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("CustomerID", "ProductID");
+
+                b.HasIndex("ProductID");
+
+                b.ToTable("Registrations");
+            });
+
             modelBuilder.Entity("SportsPro.Models.Customer", b =>
                 {
                     b.HasOne("SportsPro.Models.Country", "Country")
@@ -632,6 +650,21 @@ namespace SportsPro.Migrations
                         .WithMany()
                         .HasForeignKey("TechnicianID");
                 });
+
+            modelBuilder.Entity("SportsPro.Models.Registration", b =>
+            {
+                b.HasOne("SportsPro.Models.Customer", "Customer")
+                    .WithMany("Registrations")
+                    .HasForeignKey("CustomerID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("SportsPro.Models.Product", "Product")
+                    .WithMany("Registrations")
+                    .HasForeignKey("ProductID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 #pragma warning restore 612, 618
         }
     }

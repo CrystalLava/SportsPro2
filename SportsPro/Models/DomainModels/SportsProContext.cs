@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SportsPro.Models
 {
-    public class SportsProContext : IdentityDbContext
+    public class SportsProContext : DbContext
     {
         public SportsProContext(DbContextOptions<SportsProContext> options)
             : base(options)
@@ -301,6 +301,20 @@ namespace SportsPro.Models
                     DateClosed = null
                 }
             );
+
+            modelBuilder.Entity<Registration>()
+             .HasKey(cp => new { cp.CustomerID, cp.ProductID });
+
+
+            modelBuilder.Entity<Registration>()
+                .HasOne(cp => cp.Product)
+                .WithMany(p => p.Registrations)
+                .HasForeignKey(cp => cp.ProductID);
+
+            modelBuilder.Entity<Registration>()
+                .HasOne(cp => cp.Customer)
+                .WithMany(c => c.Registrations)
+                .HasForeignKey(cp => cp.CustomerID);
         }
     }
 }
