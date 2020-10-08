@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SportsPro.Models;
 
 namespace SportsPro.Models.DataLayer
 {
-    public interface IUnitOfWork
-    {
         public interface IUnitOfWork
         {
             IGRepository<Product> ProductRepository { get; }
@@ -18,4 +13,3 @@ namespace SportsPro.Models.DataLayer
             void Save();
         }
     }
-}
