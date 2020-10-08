@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using SportsPro.Models.DataLayer;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
-using System;
-using System.Threading.Tasks;
 
 namespace SportsPro
 {
@@ -32,24 +28,26 @@ namespace SportsPro
             services.AddMemoryCache();
             services.AddSession();
 
-            
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddTransient(typeof(IGRepository<>), typeof(GRepository<>));
+
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsProContext")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                 .AddRoles<IdentityRole>()
-                 .AddEntityFrameworkStores<SportsProContext>();
+            //services.AddDefaultIdentity<IdentityUser>(
+            //    Options =>
+            //    {
+            //        Options.Password.RequireDigit = false;
+            //        Options.Password.RequiredLength = 4;
+            //        Options.Password.RequireNonAlphanumeric = false;
+            //        Options.Password.RequireUppercase = false;
+            //    })
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<SportsProContext>();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequiredLength = 6;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireDigit = false;
-            });
-              
             services.AddControllersWithViews();
-            services.AddRazorPages();
+
             services.AddRouting(options =>
             {
                 options.LowercaseUrls = true;
@@ -57,27 +55,11 @@ namespace SportsPro
             });
 
          }
-        private async Task CreateUserRoles(IServiceProvider serviceProvider)
-        {
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            IdentityResult roleResult;
-            //Adding Admin Role
-            var roleCheck = await RoleManager.RoleExistsAsync("Admin");
-            if (!roleCheck)
-            {
-                //create the roles and seed them to the database
-                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
-            }
-            //Assign Admin role to the main User here we have given our newly registered 
-            //login id for Admin management
-            IdentityUser user = await UserManager.FindByEmailAsync("admin@sportsprosoftware.com");
-            var User = new IdentityUser();
-            await UserManager.AddToRoleAsync(user, "Admin");
-        }
         // Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+        //    RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -93,9 +75,8 @@ namespace SportsPro
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
             app.UseAuthorization();
-            
+            app.UseAuthentication();
 
             app.UseSession();
             app.UseEndpoints(endpoints =>
@@ -103,9 +84,7 @@ namespace SportsPro
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
-            CreateUserRoles(services).Wait();
         }
     }
 }

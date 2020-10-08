@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SportsPro.Models;
+using SportsPro.Models.DataLayer;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
-        private SportsProContext context { get; set; }
+        private IGRepository<Product> ProductRepo { get; set; }
 
-        public ProductsController(SportsProContext context)
+        private IUnitOfWork UnitOfWork { get; }
+        public ProductsController(IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            UnitOfWork = unitOfWork;
+            ProductRepo = unitOfWork.ProductRepository;
         }
 
         [TempData]
@@ -24,13 +22,15 @@ namespace SportsPro.Controllers
 
         [Route("Products")] //Add Route
         [HttpGet]
-        public IActionResult Index()
+        public ViewResult Index()
         {
-            return View(context.Products.ToList());
+            ViewBag.Action = "Edit";
+            var Products = ProductRepo.Get(orderBy: products => products.OrderBy(g => g.Name)).ToList();
+            return View(Products);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public ViewResult Add()
         {
             ViewBag.Action = "Add";
             
@@ -38,49 +38,50 @@ namespace SportsPro.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public ViewResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            var p = context.Products.Find(id);
-            return View(p);
+            ViewBag.Products = ProductRepo.Get(orderBy: products => products.OrderBy(g => g.Name)).ToList();
+            var product = ProductRepo.Get(id);
+            return View(product);
         }
 
         [HttpPost]
-        public RedirectToActionResult Edit(Product product)
+        public IActionResult Edit(Product product)
         {
-            if (product.ProductID == 0)
+            if (ModelState.IsValid)
             {
-                Message = $"Added Product {product.Name}";
-                context.Products.Add(product);
+                if (product.ProductID == 0)
+                    ProductRepo.Insert(product);
+                else
+                    ProductRepo.Update(product);
+                UnitOfWork.Save();
+                TempData["message"] = $"{product.Name} added to database";
+                return RedirectToAction("Index", "Product");
             }
             else
             {
-                Message = $"Edited Product {product.Name}";
-                context.Products.Update(product);
+                ViewBag.Action = (product.ProductID == 0) ? "Add" : "Edit";
+                ViewBag.Products = ProductRepo.Get(orderBy: products => products.OrderBy(g => g.Name)).ToList();
+                return View(product);
             }
-
-            context.SaveChanges();
-            return RedirectToAction("Index", "Products");
         }
 
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            ViewBag.Action = "Delete";
-            var p = context.Products.Find(id);
-            return View(p);
+            var product = ProductRepo.Get(id);
+            return View(product);
         }
 
 
         [HttpPost]
         public IActionResult Delete(Product product)
         {
-
-            Message = $"Deleted Product {product.Name}";
-            context.Products.Remove(product);
-            context.SaveChanges();
-            return RedirectToAction("Index", "Products");
+            ProductRepo.Delete(product);
+            TempData["message"] = $"{product.Name} deleted from database";
+            return RedirectToAction("List", "Product");
         }
 
 

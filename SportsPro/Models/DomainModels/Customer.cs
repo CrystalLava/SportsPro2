@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SportsPro.Models
 {
@@ -29,11 +30,12 @@ namespace SportsPro.Models
 		public string CountryID { get; set; }
 		public Country Country { get; set; }
 
-		[RegularExpression(@"^((\+0?1\s)?)\(?\d{3}\)?[\s.\s]\d{3}[\s.-]\d{4}$",
+		[RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
 			ErrorMessage = "Phone number must be in the (999) 999-9999 format.")]
 		public string Phone { get; set; }
 
 		[Required(ErrorMessage = "Please enter a valid email address.")]
+		[Remote("CheckEmail", "Validation")]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
 
