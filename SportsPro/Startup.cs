@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+//using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 
 namespace SportsPro
@@ -30,21 +30,23 @@ namespace SportsPro
             services.AddMemoryCache();
             services.AddSession();
 
-            
+            //services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            //services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsProContext")));
 
-            services.AddDefaultIdentity<IdentityUser>(
-                Options =>
-                {
-                    Options.Password.RequireDigit = false;
-                    Options.Password.RequiredLength = 4;
-                    Options.Password.RequireNonAlphanumeric = false;
-                    Options.Password.RequireUppercase = false;
-                })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<SportsProContext>();
+            //services.AddDefaultIdentity<IdentityUser>(
+            //    Options =>
+            //    {
+            //        Options.Password.RequireDigit = false;
+            //        Options.Password.RequiredLength = 4;
+            //        Options.Password.RequireNonAlphanumeric = false;
+            //        Options.Password.RequireUppercase = false;
+            //    })
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<SportsProContext>();
 
             services.AddControllersWithViews();
 

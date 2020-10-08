@@ -30,7 +30,7 @@ namespace SportsPro.Models
 		public string CountryID { get; set; }
 		public Country Country { get; set; }
 
-		[RegularExpression(@"^((\+0?1\s)?)\(?\d{3}\)?[\s.\s]\d{3}[\s.-]\d{4}$",
+		[RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}",
 			ErrorMessage = "Phone number must be in the (999) 999-9999 format.")]
 		public string Phone { get; set; }
 

@@ -23,10 +23,6 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\DataLayer\" />
-  </ItemGroup>
-
 
 
 </Project>
