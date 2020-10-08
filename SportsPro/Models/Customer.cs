@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SportsPro.Models
 {
@@ -34,6 +35,7 @@ namespace SportsPro.Models
 		public string Phone { get; set; }
 
 		[Required(ErrorMessage = "Please enter a valid email address.")]
+		[Remote("CheckEmail", "Validation")]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
 
