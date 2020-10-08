@@ -6,6 +6,11 @@ namespace SportsPro.Models
 {
     public class Customer
     {
+        public Customer()
+        {
+			Registrations = new List<Registration>();
+        }
+
 		public int CustomerID { get; set; }
 
 		[Required(ErrorMessage = "First Name must be between 1 and 51 characters.")]
@@ -40,5 +45,8 @@ namespace SportsPro.Models
 		public string Email { get; set; }
 
 		public string FullName => FirstName + " " + LastName;   // read-only property
+
+		public virtual IList<Registration> Registrations { get; set; }
+
 	}
 }

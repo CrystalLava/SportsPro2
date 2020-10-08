@@ -7,6 +7,10 @@ namespace SportsPro.Models
 {
     public class Product
     {
+        public Product()
+        {
+			Registrations = new List<Registration>();
+        }
 		public int ProductID { get; set; }
 
 		[Required]
@@ -20,5 +24,7 @@ namespace SportsPro.Models
 		public decimal YearlyPrice { get; set; }
 
 		public DateTime ReleaseDate { get; set; } = DateTime.Now;
-	}
+
+        public virtual  IList<Registration> Registrations { get; set; }
+    }
 }
