@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Builder;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
-using Microsoft.AspNetCore.Identity;
+using SportsPro.Models.DataLayer;
+//using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 
@@ -30,8 +28,8 @@ namespace SportsPro
             services.AddMemoryCache();
             services.AddSession();
 
-            //services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
-            //services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddTransient(typeof(IGRepository<>), typeof(GRepository<>));
 
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
@@ -59,8 +57,9 @@ namespace SportsPro
          }
 
         // Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+        //    RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
