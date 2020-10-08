@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SportsPro.Controllers
 {
-    [Authorize]
+  
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,10 +24,6 @@ namespace SportsPro.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
           
 

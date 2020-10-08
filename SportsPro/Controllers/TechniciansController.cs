@@ -4,10 +4,12 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SportsPro.Models;
 
 namespace SportsPro.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TechniciansController : Controller
     {
         private SportsProContext context { get; set; }

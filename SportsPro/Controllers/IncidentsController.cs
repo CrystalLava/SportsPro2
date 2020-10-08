@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using SportsPro.Models;
 
 using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class IncidentsController : Controller
     {
         private SportsProContext context { get; set; }

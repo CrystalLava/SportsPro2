@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
@@ -11,6 +12,7 @@ using SportsPro.Models;
 
 namespace SportsPro.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RegistrationController : Controller
     {
         private SportsProContext context { get; set; }
