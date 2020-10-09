@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using System;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace SportsPro
 {
@@ -57,10 +59,8 @@ namespace SportsPro
             });
 
          }
-        /*using (IServiceScope scope = app.ApplicationServices.CreateScope()) {
-    RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    // Seed database code goes here
+        /*var newRole = new ApplicationRole { 	Name = model.RoleName, 	Description = model.RoleDescription }; 
+         * var result = await roleManager.CreateAsync(newRole);
 }*/
         private async Task CreateUserRoles(IServiceProvider serviceProvider)
         {
@@ -75,12 +75,32 @@ namespace SportsPro
                 //create the roles and seed them to the database
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
             }
+
+
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             IdentityUser user = await UserManager.FindByEmailAsync("admin@sportsprosoftware.com");
             var User = new IdentityUser();
             await UserManager.AddToRoleAsync(user, "Admin");
         }
+        private async Task CreateNewRoles(IServiceProvider serviceProvider)
+             {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            IdentityResult roleResult;
+            var roleCheck = await RoleManager.RoleExistsAsync("Tech");
+                if (!roleCheck)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole("Tech"));
+                }
+                IdentityUser user = await UserManager.FindByNameAsync("tech@sportsprosoftware.com");
+                var User = new IdentityUser();
+                await UserManager.AddToRoleAsync(user, "Tech");
+        }
+
+
+       
         // Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
@@ -110,6 +130,9 @@ namespace SportsPro
                 endpoints.MapRazorPages();
             });
             CreateUserRoles(services).Wait();
+            CreateNewRoles(services).Wait();
+
+
         }
     }
 }

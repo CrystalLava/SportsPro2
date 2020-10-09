@@ -6,7 +6,7 @@ using SportsPro.Models.DataLayer;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private IGRepository<Product> ProductRepo { get; set; }

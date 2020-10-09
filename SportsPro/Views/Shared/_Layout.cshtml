@@ -14,45 +14,13 @@
     <title>@ViewData["Title"] - SportsPro</title>
     
     
-    <environment names="Development">
+   
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
+        <link rel="stylesheet" href="C:~/css/site.css" />
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .fa {
-            padding: 20px;
-            font-size: 30px;
-            width: 30px;
-            text-align: center;
-            text-decoration: none;
-            margin: 5px 2px;
-            border-radius: 50%;
-        }
-        .social a {
-            font-size: 4.5rem;
-            padding: 3rem;
-        }
-
-        .fa-facebook {
-            color: #3b5998;
-        }
-
-        .fa-twitter {
-            color: #00aced;
-        }
-
-        .fa-instagram {
-            color: #517fa8;
-        }
-
-            .fa-facebook :hover,
-            .fa-twitter :hover,
-            .fa-instagram :hover {
-                color: #d5d5d5;
-            }
-    </style>
+    
 </head>
 <body>
     <header>
@@ -72,9 +40,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white @(controllerName == "Home" && action == "About"? "active" : "")" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (SignInManager.IsSignedIn(User))
                         {
-                            if (User.IsInRole("Admin"))
+                            @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -90,7 +58,7 @@
                                 </li>
                             }
 
-                            if (User.IsInRole("Technician"))
+                            else //(User.IsInRole("Tech"));
                             {
                                 <li class="nav-item dropdown">
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -98,6 +66,7 @@
                                             Manage
                                         </a>
                                         <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
+                                        <a class="dropdown-item text-dark @(controllerName == "TechIncidents" ? "active" : "")" asp-controller="TechIncidents" asp-action="Index">Update Incidents</a>
                                     </div>
                                 </li>
                             }
