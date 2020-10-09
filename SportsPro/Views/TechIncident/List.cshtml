@@ -6,8 +6,8 @@
     int? sessionID = Context.Session.GetInt32("sessionID");
 
 }
-<div class="text-center">
-    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Technician: @Model.Technician.Name <br /> Assigned & Open Incidents</b></h1>  
+<div>
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Technician: @Model.Technician.Name <br /> Assigned & Open Incidents</b></h1>  
 </div>
 
 <table class="table table-striped">
@@ -24,19 +24,24 @@
     <tbody>
         @foreach (var i in @Model.Incidents)
         {
-            <tr>
-                <td>@i.Title</td>
-                <td>@i.Customer.FullName</td>
-                <td>@i.Product.Name</td>
-                <td>@i.DateOpened</td>
-                <td>
-                    <a asp-controller="TechIncident" asp-action="Edit" asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@i.Title</td>
+            <td>@i.Customer.FullName</td>
+            <td>@i.Product.Name</td>
+            <td>@i.DateOpened</td>
+            <td>
+                <a asp-controller="TechIncident" asp-action="Edit" 
+                   asp-route-id=@i.IncidentID class="btn" style="background-color: #bae8e8;">Edit</a>
+            </td>
+            <td>
+                <a asp-controller="TechIncident" asp-action="Delete"
+                   asp-route-id=@i.IncidentID class="btn" style="background-color: #f67e7d;">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 <br />
 <br />
 <br />
-<a asp-controller="TechIncident" asp-action="Get" class="btn btn-primary">Switch Technician</a>
+<a asp-controller="TechIncident" asp-action="Get" class="btn" style="background-color: #5c848e; color:white">Switch Technician</a>

@@ -58,15 +58,17 @@
                                 </li>
                             }
 
-                            else //(User.IsInRole("Tech"));
+
+                            else if (User.IsInRole("Tech"))
                             {
                                 <li class="nav-item dropdown">
+
+                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Manage
+                                    </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Manage
-                                        </a>
-                                        <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
-                                        <a class="dropdown-item text-dark @(controllerName == "TechIncidents" ? "active" : "")" asp-controller="TechIncidents" asp-action="Index">Update Incidents</a>
+
+                                        <a class="dropdown-item text-dark @(controllerName == "TechIncident" ? "active" : "")" asp-controller="TechIncident" asp-action="Get">Update Incidents</a>
                                     </div>
                                 </li>
                             }
@@ -98,11 +100,12 @@
     <br />
     <br />
     <br />
-    <footer class="container-fluid text-center">
-        <div class="col-12">
-            <div class="font-weight-bold">
-
-                <h5><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> @DateTime.Now.Year - SportsPro</h5>
+    <footer>
+        <div class="container-fluid text-center">
+            <div class="col-12">
+                <div class="font-weight-bold">
+                    <h5><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> @DateTime.Now.Year - SportsPro</h5>
+                </div>
             </div>
 
         </div>

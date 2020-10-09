@@ -18,7 +18,7 @@
         <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
     }
 
-    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Customer Manager</b></h1>
+<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Customer Manager</b></h1>
 </div>
 <table class="table table-striped">
     <thead>
@@ -38,10 +38,12 @@
                 <td>@t.Email</td>
                 <td>@t.City</td>
                 <td>
-                    <a asp-controller="Customers" asp-action="Edit" asp-route-id=@t.CustomerID class="btn btn-primary">Edit</a>
+                    <a asp-controller="Customers" asp-action="Edit"
+                       asp-route-id=@t.CustomerID Edit class="btn" style="background-color: #bae8e8;">Edit</a>
                 </td>
                 <td>
-                    <a asp-controller="Customers" asp-action="Delete" asp-route-id=@t.CustomerID class="btn btn-danger">Delete</a>
+                    <a asp-controller="Customers" asp-action="Delete" 
+                       asp-route-id=@t.CustomerID class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
             </tr>
         }
@@ -50,4 +52,4 @@
 <br />
 <br />
 <br />
-<a asp-controller="Customers" asp-action="Add" class="btn btn-primary">Add Customer</a>
+<a asp-controller="Customers" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Customer</a>

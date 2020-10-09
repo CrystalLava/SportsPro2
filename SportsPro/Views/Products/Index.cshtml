@@ -18,7 +18,7 @@
     }
 
 
-    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Product Manager</b></h1>
+<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Product Manager</b></h1>
 </div>
 <table class="table table-striped">
     <thead>
@@ -40,10 +40,12 @@
                 <td>@p.YearlyPrice</td>
                 <td>@p.ReleaseDate</td>
                 <td>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id=@p.ProductID class="btn btn-primary">Edit</a>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id=@p.ProductID 
+                       class="btn" style="background-color: #bae8e8;">Edit</a>
                 </td>
                 <td>
-                    <a asp-controller="Products" asp-action="Delete" asp-route-id=@p.ProductID class="btn btn-danger">Delete</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id=@p.ProductID 
+                       class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
             </tr>
         }

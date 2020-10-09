@@ -8,7 +8,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin, Tech")]
+    [Authorize(Roles = "Tech")]
     public class TechIncidentController : Controller
     {
         private SportsProContext context { get; set; }
@@ -45,14 +45,13 @@ namespace SportsPro.Controllers
                         .ToList()
                 };
                 if (viewModel.Incidents.Count == 0)
-                    TempData["message"] = $"No open incidents for this Technicien";
+                    TempData["message"] = $"No open incidents for this Technician";
 
                 return View(viewModel);
             }
             else
             {
-                TempData["message"] = $"Please enter a  Technicien";
-                //return RedirectToActionResult ("get");
+                TempData["message"] = $"Please enter a  Technician";
                 return RedirectToAction("Get");
             }
         }

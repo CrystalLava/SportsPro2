@@ -13,7 +13,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin, Tech")]
+    [Authorize(Roles = "Admin")]
     public class IncidentsController : Controller
     {
         private SportsProContext context { get; set; }

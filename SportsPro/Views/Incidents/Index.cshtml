@@ -19,19 +19,22 @@
     {
         <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
     }
-    <h1 style="background-color: #f7d6bf; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
+<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
 </div>
 
 <div class="container">
     <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link @((FilterString == "null" || FilterString == null) ? "active": "")" asp-controller="Incidents" asp-action="FilterAll">All Incidents</a>
+        <li class="nav-item" >
+            <a class="nav-link @((FilterString == "null" || FilterString == null) ? "active": "")" asp-controller="Incidents" 
+               asp-action="FilterAll" style="background-color: #a696c8;" >All Incidents</a>
+        </li>
+        <li class="nav-item" >
+            <a class="nav-link @(FilterString == "unassigned" ? "active": "")"  asp-controller="Incidents" 
+               asp-action="FilterUnassigned" style="background-color: #a696c8;">Unassigned Incidents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link @(FilterString == "unassigned" ? "active": "")"  asp-controller="Incidents" asp-action="FilterUnassigned">Unassigned Incidents</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link @(FilterString == "open" ? "active": "")" asp-controller="Incidents" asp-action="FilterOpen">Open Incidents</a>
+            <a class="nav-link @(FilterString == "open" ? "active": "")" asp-controller="Incidents" 
+               asp-action="FilterOpen" style="background-color: #a696c8;">Open Incidents</a>
         </li>
 
     </ul>
@@ -58,11 +61,11 @@
                 <td>@i.DateOpened</td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Edit"
-                       asp-route-id=@i.IncidentID class="btn btn-primary">Edit</a>
+                       asp-route-id=@i.IncidentID class="btn" style="background-color: #bae8e8;">Edit</a>
                 </td>
                 <td>
                     <a asp-controller="Incidents" asp-action="Delete"
-                       asp-route-id=@i.IncidentID class="btn btn-danger">Delete</a>
+                       asp-route-id=@i.IncidentID class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
             </tr>
         }
@@ -71,4 +74,4 @@
 <br />
 <br />
 <br />
-<a asp-controller="Incidents" asp-action="Add" class="btn btn-primary">Add Incident</a>
+<a asp-controller="Incidents" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Incident</a>

@@ -10,7 +10,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="text-center">
-    <h1 style="background-color: #b0cac7; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Product</b></h1>
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>@ViewBag.Action Product</b></h1>
 </div>
 
 <form asp-action="Edit" asp-controller="Products" method="post">
@@ -34,6 +34,6 @@
         <label for="date">Release Date</label>
         <input asp-for="ReleaseDate" type="datetime" class="form-control" id="date" placeholder="Release Date" value="@ViewBag.Date">
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-controller="Products" asp-action="Index" class="btn btn-info">Cancel</a>
+    <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>
+    <a asp-controller="Products" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>
 </form>
