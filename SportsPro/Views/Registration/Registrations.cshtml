@@ -1,7 +1,6 @@
 ﻿@model RegisterViewModel
 
 <h2>Customer: @Model.ActiveCustomer</h2>
-<h3>Registrations</h3>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -24,7 +23,7 @@
                 <td>
                     <a asp-controller="Registration" asp-action="Delete"
                        asp-route-id="@product.ProductID"
-                       class="btn btn-primary">Delete</a>
+                       class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
 
 
@@ -40,7 +39,7 @@
 
     <div class="form-group">
         <h3>Product</h3>
-        <label asp-for="CurrentProduct.ProductID">Technician</label>
+        
         <select asp-for="CurrentProduct.ProductID" class="form-control">
             <option value="">Please select one</option>
             @foreach (Product product in Model.Products)
@@ -52,6 +51,6 @@
 
 
     <div>
-        <button type="submit" class="btn btn-primary">Select</button>
+        <button type="submit" class="btn" style="background-color: #5c848e; color:white">Select</button>
     </div>
 </form>

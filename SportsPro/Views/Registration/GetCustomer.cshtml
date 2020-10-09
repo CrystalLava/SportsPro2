@@ -8,7 +8,7 @@
 
     <div class="form-group">
 
-        <label asp-for="CurrentCustomer.CustomerID">Customer</label>
+        
         <select asp-for="CurrentCustomer.CustomerID" class="form-control">
             <option value="">Please select one</option>
             @foreach (Customer customer in Model.Customers)
@@ -22,9 +22,9 @@
 
 
     <div>
-        <button type="submit" class="btn btn-primary">Select</button>
+        <button type="submit" class="btn" style="background-color: #5c848e; color:white">Select</button>
 
         <a asp-controller="Home" asp-action="Index"
-           class="btn btn-primary">Cancel</a>
+          class="btn" style="background-color: #5c848e; color:white">Cancel</a>
     </div>
 </form>
