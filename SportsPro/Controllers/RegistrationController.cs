@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Session;
-using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
 
-
+//Page not completed//
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]//only admin can view and use this page
     public class RegistrationController : Controller
     {
         private SportsProContext context { get; set; }

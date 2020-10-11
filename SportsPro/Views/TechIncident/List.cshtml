@@ -2,46 +2,48 @@
 @using Microsoft.AspNetCore.Http
 @model TechIncidentViewModel
 @{
-    ViewData["Title"] = "List Incidents for Technician";
+    ViewData["Title"] = "List Incidents for Technician";@*List all incidents under a tech using a session state*@
     int? sessionID = Context.Session.GetInt32("sessionID");
-
 }
+
 <div>
-    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Technician: @Model.Technician.Name <br /> Assigned & Open Incidents</b></h1>  
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Technician: @Model.Technician.Name <br /> Assigned & Open Incidents</b></h1>
 </div>
 
+@*Table showing only a few keys pieces of info about an incident. Rows are alternating stripes for easy read*@
 <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Title</th>
-            <th scope="col">Custo1mer</th>
+            <th scope="col">Customer</th>
             <th scope="col">Product</th>
             <th scope="col">Date Opened</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
     </thead>
+
     <tbody>
-        @foreach (var i in @Model.Incidents)
+        @foreach (var i in @Model.Incidents)@*each incident row has an edit and delete button*@
         {
-        <tr>
-            <td>@i.Title</td>
-            <td>@i.Customer.FullName</td>
-            <td>@i.Product.Name</td>
-            <td>@i.DateOpened</td>
-            <td>
-                <a asp-controller="TechIncident" asp-action="Edit" 
-                   asp-route-id=@i.IncidentID class="btn" style="background-color: #bae8e8;">Edit</a>
-            </td>
-            <td>
-                <a asp-controller="TechIncident" asp-action="Delete"
-                   asp-route-id=@i.IncidentID class="btn" style="background-color: #f67e7d;">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@i.Title</td>
+                <td>@i.Customer.FullName</td>
+                <td>@i.Product.Name</td>
+                <td>@i.DateOpened</td>
+                <td>
+                    <a asp-controller="TechIncident" asp-action="Edit"
+                       asp-route-id=@i.IncidentID class="btn" style="background-color: #bae8e8;">Edit</a>@*Edit button*@
+                </td>
+                <td>
+                    <a asp-controller="TechIncident" asp-action="Delete"
+                       asp-route-id=@i.IncidentID class="btn" style="background-color: #f67e7d;">Delete</a>@*Delete button*@
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 <br />
 <br />
 <br />
-<a asp-controller="TechIncident" asp-action="Get" class="btn" style="background-color: #5c848e; color:white">Switch Technician</a>
+<a asp-controller="TechIncident" asp-action="Get" class="btn" style="background-color: #5c848e; color:white">Switch Technician</a>@*switch tech button will take you back to Get tech page*@

@@ -1,4 +1,4 @@
-﻿@model List<Customer>
+﻿@model List<Customer> @*List all customers*@
 @{
     ViewBag.Title = "Customer Manager";
     var msg = TempData["Message"]?.ToString();
@@ -15,12 +15,12 @@
 
     @if (needsToShow)
     {
-        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>@*temp data showing which customer deleted within a coloured box*@
     }
 
-<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Customer Manager</b></h1>
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Customer Manager</b></h1>
 </div>
-<table class="table table-striped">
+<table class="table table-striped">@*Table showing only a few keys pieces of info about a customer. Rows are alternating stripes for easy read*@
     <thead>
         <tr>
             <th scope="col">Name</th>
@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var t in @Model)
+        @foreach (var t in @Model)@*each customer row has an edit and delete button*@
         {
             <tr>
                 <td>@t.FullName</td>
@@ -42,7 +42,7 @@
                        asp-route-id=@t.CustomerID Edit class="btn" style="background-color: #bae8e8;">Edit</a>
                 </td>
                 <td>
-                    <a asp-controller="Customers" asp-action="Delete" 
+                    <a asp-controller="Customers" asp-action="Delete"
                        asp-route-id=@t.CustomerID class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
             </tr>
@@ -52,4 +52,4 @@
 <br />
 <br />
 <br />
-<a asp-controller="Customers" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Customer</a>
+<a asp-controller="Customers" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Customer</a>@*add customer button*@

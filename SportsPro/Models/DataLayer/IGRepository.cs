@@ -21,23 +21,4 @@ namespace SportsPro.Models.DataLayer
         void Delete(T t);
     }
 
-    // interface Transporter
-    // {
-    //     void move();
-    //
-    //     int measureDistance();
-    // }
-    //
-    // class LandTransporter : Transporter
-    // {
-    //     public void move()
-    //     {
-    //         Console.WriteLine("i am a land transporter");
-    //     }
-    //
-    //     public int measureDistance()
-    //     {
-    //         throw new NotImplementedException();
-    //     }
-    // }
 }

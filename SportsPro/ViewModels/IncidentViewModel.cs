@@ -1,6 +1,7 @@
 ﻿using SportsPro.Models;
 using System.Collections.Generic;
 
+//ViewModel for incident. Do not need all customer data for incidents, so a shorter list was made
 namespace SportsPro.ViewModels
 {
     public class IncidentViewModel

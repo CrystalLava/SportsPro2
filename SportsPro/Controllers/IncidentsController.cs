@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +10,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]//Only admin can use and see this page
     public class IncidentsController : Controller
     {
         private SportsProContext context { get; set; }
@@ -25,7 +22,7 @@ namespace SportsPro.Controllers
 
         [Route("Incidents")] //Add Route
 
-        public ViewResult Index()
+        public ViewResult Index()//Query filter for incidents. All/Unassigned/Open
         {
             string FilterString = HttpContext.Session.GetString("FilterString");
             var viewModel = new IncidentViewModel();
@@ -122,7 +119,7 @@ namespace SportsPro.Controllers
             return View(t);
         }
 
-        [HttpPost]
+        [HttpPost] //Message when incidents deleted, save changes, and return to incidents page
         public IActionResult Delete(Incident t)
         {
             TempData["message"] = $"Deleted Incident";

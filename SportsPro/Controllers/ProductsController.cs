@@ -6,7 +6,7 @@ using SportsPro.Models.DataLayer;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]//Only admin can view and use this page
     public class ProductsController : Controller
     {
         private IGRepository<Product> ProductRepo { get; set; }
@@ -18,7 +18,7 @@ namespace SportsPro.Controllers
             ProductRepo = unitOfWork.ProductRepository;
         }
 
-        [TempData]
+        [TempData]//Temp message shown at top of page
         public string Message { get; set; }
 
 
@@ -78,7 +78,7 @@ namespace SportsPro.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost]//Message when tech deleted, save changes, and return to tech page
         public IActionResult Delete(Product product)
         {
             ProductRepo.Delete(product);

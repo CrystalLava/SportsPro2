@@ -17,30 +17,33 @@
 <div class="text-center">
     @if (needsToShow)
     {
-        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>@*temp data showing which incident deleted within a coloured box*@
     }
-<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Incident Manager</b></h1>
 </div>
 
 <div class="container">
-    <ul class="nav nav-pills">
-        <li class="nav-item" >
-            <a class="nav-link @((FilterString == "null" || FilterString == null) ? "active": "")" asp-controller="Incidents" 
-               asp-action="FilterAll" style="background-color: #a696c8;" >All Incidents</a>
-        </li>
-        <li class="nav-item" >
-            <a class="nav-link @(FilterString == "unassigned" ? "active": "")"  asp-controller="Incidents" 
-               asp-action="FilterUnassigned" style="background-color: #a696c8;">Unassigned Incidents</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link @(FilterString == "open" ? "active": "")" asp-controller="Incidents" 
-               asp-action="FilterOpen" style="background-color: #a696c8;">Open Incidents</a>
-        </li>
+    @*links for filter strings for incidents*@
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link @((FilterString == "null" || FilterString == null) ? "active": "")" asp-controller="Incidents"
+           asp-action="FilterAll" style="background-color: #a696c8;">All Incidents</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(FilterString == "unassigned" ? "active": "")" asp-controller="Incidents"
+           asp-action="FilterUnassigned" style="background-color: #a696c8;">Unassigned Incidents</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(FilterString == "open" ? "active": "")" asp-controller="Incidents"
+           asp-action="FilterOpen" style="background-color: #a696c8;">Open Incidents</a>
+    </li>
 
-    </ul>
+</ul>
 </div>
 
 <table class="table table-striped">
+    @*Table showing only a few keys pieces of info about an incident. Rows are alternating stripes for easy read*@
+
     <thead>
         <tr>
             <th scope="col">Title</th>
@@ -52,7 +55,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var i in @Model.Incidents)
+        @foreach (var i in @Model.Incidents)@*each incident row has an edit and delete button*@
         {
             <tr>
                 <td>@i.Title</td>
@@ -74,4 +77,4 @@
 <br />
 <br />
 <br />
-<a asp-controller="Incidents" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Incident</a>
+<a asp-controller="Incidents" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Incident</a>@*add incident button*@

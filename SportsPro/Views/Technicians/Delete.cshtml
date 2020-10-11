@@ -1,6 +1,6 @@
 ﻿@model Technician
 @{
-    ViewBag.Title = "Delete Technician";
+    ViewBag.Title = "Delete Technician";@*Confirmation of Tech to be deleted*@
 }
 <div class="alert alert-danger">
     <h2>Confirm Deletion</h2>
@@ -9,8 +9,8 @@
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="TechnicianID" />
 
-        <button type="submit" class="btn btn-primary">Delete</button>
+        <button type="submit" class="btn btn-primary">Delete</button>@*Delete button*@
         <a asp-controller="Technicians" asp-action="Index"
-           class="btn btn-primary">Cancel</a>
+           class="btn btn-primary">Cancel</a>@*Cancel button*@
     </form>
 </div>

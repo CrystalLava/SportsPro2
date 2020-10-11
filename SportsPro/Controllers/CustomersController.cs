@@ -1,15 +1,12 @@
 ﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportsPro.Models;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]//Only admin has access to this page
     public class CustomersController : Controller
     {
         private SportsProContext context { get; set; }
@@ -18,11 +15,11 @@ namespace SportsPro.Controllers
         {
             this.context = context;
         }
-        [TempData]
+        [TempData]//Temp message for top of the page when customer added/edited/deleted
         public string Message { get; set; }
 
         [Route("Customers")]// Add Route
-        public IActionResult Index()
+        public IActionResult Index()//Load customers in order of first name
         {
             var Customers = context.Customers.OrderBy(g => g.FirstName).ToList();
             return View(Customers);
@@ -44,9 +41,9 @@ namespace SportsPro.Controllers
             var t = context.Customers.Find(id);
             return View(t);
         }
-        	
-         [HttpPost]
-         public RedirectToActionResult Edit(Customer customer)
+
+        [HttpPost]//Message when customer Edited or Added, save changes, and return to customer page
+        public RedirectToActionResult Edit(Customer customer)
          {
             if (customer.CustomerID == 0)
             {
@@ -71,7 +68,7 @@ namespace SportsPro.Controllers
             return View(t);
         }
 
-        [HttpPost]
+        [HttpPost]//Message when customer deleted, save changes, and return to customer page
         public IActionResult Delete(Customer customer)
         {
             Message = $"Deleted Customer {customer.FullName}";

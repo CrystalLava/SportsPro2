@@ -1,7 +1,7 @@
 ﻿@using SportsPro.ViewModels
 @model IncidentViewModel
 @{
-    string title = Model.Action == "Add" ? "Add" : "Edit";
+    string title = Model.Action == "Add" ? "Add" : "Edit"; @*Title of page is either add or edit, based on what button was clicked*@
     ViewBag.Title = title;
 }
 
@@ -10,13 +10,14 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="text-center">
-    <h1 style =" background-color: #decdc3; font-size: 50px" class="jumbotron"><b>@Model.Action Incident</b></h1>
+    <h1 style=" background-color: #decdc3; font-size: 50px" class="jumbotron"><b>@Model.Action Incident</b></h1>
 </div>
 
 <form asp-action="Edit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
+        @*Choose a tech from a drop down list*@
         <label asp-for="CurrentIncident.TechnicianID">Technician</label>
         <select asp-for="CurrentIncident.TechnicianID" class="form-control">
             <option value="">Please select one</option>
@@ -29,6 +30,7 @@
     </div>
 
     <div class="form-group">
+        @*Choose a customer from drop down list*@
         <label asp-for="CurrentIncident.CustomerID">Customer</label>
         <select asp-for="CurrentIncident.CustomerID" class="form-control">
             <option value="">Please select one</option>
@@ -41,6 +43,7 @@
     </div>
 
     <div class="form-group">
+        @*Choose a product from drop down list*@
         <label asp-for="CurrentIncident.ProductID">Product</label>
         <select asp-for="CurrentIncident.ProductID" class="form-control">
             <option value="">Please select one</option>
@@ -53,30 +56,34 @@
     </div>
 
     <div class="form-group">
+        @*Title to associate with incident*@
         <label asp-for="CurrentIncident.Title">Title</label>
         <input asp-for="CurrentIncident.Title" class="form-control">
         <span asp-validation-for="CurrentIncident.Title"></span>
     </div>
 
     <div class="form-group">
+        @*Date incident was opened*@
         <label asp-for="CurrentIncident.DateOpened">Date Opened</label>
         <input asp-for="CurrentIncident.DateOpened" class="form-control">
         <span asp-validation-for="CurrentIncident.DateOpened"></span>
     </div>
 
     <div class="form-group">
+        @*Description of incident*@
         <label asp-for="CurrentIncident.Description">Description</label>
         <input asp-for="CurrentIncident.Description" class="form-control">
         <span asp-validation-for="CurrentIncident.Description"></span>
     </div>
 
     <div class="form-group">
+        @*Date incident was closed*@
         <label asp-for="CurrentIncident.DateClosed">Date Closed</label>
         <input asp-for="CurrentIncident.DateClosed" class="form-control">
         <span asp-validation-for="CurrentIncident.DateClosed"></span>
     </div>
 
-    <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>
-    <a asp-controller="Incidents" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>
+    <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>@*Save button*@
+    <a asp-controller="Incidents" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>@*Cancel button*@
 </form>
 

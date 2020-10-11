@@ -1,4 +1,6 @@
-﻿@model RegisterViewModel
+﻿@*Not completed page*@
+
+@model RegisterViewModel
 
 <h2>Get Customer</h2>
 
@@ -8,7 +10,7 @@
 
     <div class="form-group">
 
-        
+
         <select asp-for="CurrentCustomer.CustomerID" class="form-control">
             <option value="">Please select one</option>
             @foreach (Customer customer in Model.Customers)
@@ -25,6 +27,6 @@
         <button type="submit" class="btn" style="background-color: #5c848e; color:white">Select</button>
 
         <a asp-controller="Home" asp-action="Index"
-          class="btn" style="background-color: #5c848e; color:white">Cancel</a>
+           class="btn" style="background-color: #5c848e; color:white">Cancel</a>
     </div>
 </form>

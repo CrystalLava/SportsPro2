@@ -7,12 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SportsPro.Models;
 using SportsPro.Models.DataLayer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using System;
-using System.Threading.Tasks;
-using Microsoft.IdentityModel.Tokens;
-
 
 namespace SportsPro
 {
@@ -32,17 +27,21 @@ namespace SportsPro
             services.AddMemoryCache();
             services.AddSession();
 
+            //Unit of work and repository
             services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddTransient(typeof(IGRepository<>), typeof(GRepository<>));
 
+            //connect to database
             services.AddDbContext<SportsProContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SportsProContext")));
 
+            //Identity user and roles 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SportsProContext>();
 
+            //Configure password options for user 
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 6;
@@ -60,6 +59,10 @@ namespace SportsPro
 
          }
         
+        //THE FOLLOWING MUST BE COMMENTED OUT WHEN PUBLISHING PROJECT AS A WEBSITE
+
+        //The following is used to created admin and user roles using ASP.NET CORE identity templetes
+
         /*private async Task CreateUserRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -116,7 +119,8 @@ namespace SportsPro
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
+            
+            app.UseAuthentication();//Require for login roles/users. Authentication must come before Authorization
             app.UseAuthorization();
 
             app.UseSession();
@@ -127,6 +131,9 @@ namespace SportsPro
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            //FOLLOWING 2 LINES MUST BE COMMENTED OUT TO PUBLISH PROJECT AS A WEBSITE
+             
             //CreateUserRoles(services).Wait();
             //CreateNewRoles(services).Wait();
 

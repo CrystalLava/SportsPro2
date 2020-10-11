@@ -1,4 +1,5 @@
-﻿@model RegisterViewModel
+﻿@*Not completed page*@
+@model RegisterViewModel
 
 <h2>Customer: @Model.ActiveCustomer</h2>
 
@@ -15,31 +16,23 @@
 
         {
             <tr>
-
                 <td>@product.Name</td>
-
-
-
                 <td>
                     <a asp-controller="Registration" asp-action="Delete"
                        asp-route-id="@product.ProductID"
                        class="btn" style="background-color: #f67e7d;">Delete</a>
                 </td>
-
-
             </tr>
         }
     </tbody>
-     
+
 </table>
 <div class="alert-info">@Model.WarningText</div>
 <form asp-action="RegisterProduct" method="post">
     @*<div asp-validation-summary="All" class="text-danger"></div>*@
-
-
     <div class="form-group">
         <h3>Product</h3>
-        
+
         <select asp-for="CurrentProduct.ProductID" class="form-control">
             <option value="">Please select one</option>
             @foreach (Product product in Model.Products)
@@ -48,7 +41,6 @@
             }
         </select>
     </div>
-
 
     <div>
         <button type="submit" class="btn" style="background-color: #5c848e; color:white">Select</button>

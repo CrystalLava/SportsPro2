@@ -1,6 +1,6 @@
 ﻿@model Technician
 @{
-    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    string title = ViewBag.Action == "Add" ? "Add" : "Edit";@*Title of page is either add or edit, based on what button was clicked*@
     ViewBag.Title = title;
 }
 
@@ -11,7 +11,7 @@
 <div class="text-center">
     <h1 style="background-color: #decdc3; font-size:50px" class="jumbotron"><b>@ViewBag.Action Technician</b></h1>
 </div>
-
+@*Tech and all of their individual info*@
 <form asp-action="Edit" asp-controller="Technicians" method="post">
     @if (ViewBag.Action == "Edit")
     {
@@ -30,5 +30,5 @@
         <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
     </div>
     <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>
-    <a asp-controller="Technicians" asp-action="Index"class="btn" style="background-color: #5c848e; color:white">Cancel</a>
+    <a asp-controller="Technicians" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>
 </form>

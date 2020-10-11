@@ -12,18 +12,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SportsPro</title>
-    
-    
-   
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="C:~/css/site.css" />
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
 </head>
+
 <body>
     <header>
+        <!-- Beginning of Nav bar -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SportsPro</a>
@@ -31,8 +28,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Pages a user who is not an admin/tech can see -->
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-white @(controllerName == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
@@ -40,6 +37,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white @(controllerName == "Home" && action == "About"? "active" : "")" asp-controller="Home" asp-action="About">About</a>
                         </li>
+                        <!-- if user is an admin they can access these pages using a drop down menu -->
                         @if (SignInManager.IsSignedIn(User))
                         {
                             @if (User.IsInRole("Admin"))
@@ -57,8 +55,7 @@
                                     </div>
                                 </li>
                             }
-
-
+                            <!-- if user is Tech they can access these pages using a drop down menu -->
                             else if (User.IsInRole("Tech"))
                             {
                                 <li class="nav-item dropdown">
@@ -83,9 +80,10 @@
 
             </div>
         </nav>
-
+        <!-- End of Nav bar-->
     </header>
 
+    <!-- Main body for all pages-->
     <div class="container">
         @if (TempData.ContainsKey("message"))
         {
@@ -100,6 +98,7 @@
     <br />
     <br />
     <br />
+    <!--Footer with copywrite and current year-->
     <footer>
         <div class="container-fluid text-center">
             <div class="col-12">

@@ -1,5 +1,4 @@
-﻿@model List<Technician>
-
+﻿@model List<Technician>@*List all techs*@
 @{
     ViewBag.Title = "Technician Manager";
     var msg = TempData["Message"]?.ToString();
@@ -15,11 +14,12 @@
 <div class="text-center">
     @if (needsToShow)
     {
-        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>@*temp data showing which incident deleted within a coloured box*@
     }
 
-<h1 style="background-color: #decdc3; font-size:50px" class="jumbotron"><b>Technician Manager</b></h1>
+    <h1 style="background-color: #decdc3; font-size:50px" class="jumbotron"><b>Technician Manager</b></h1>
 </div>
+@*Table showing only a few keys pieces of info about a tech. Rows are alternating stripes for easy read*@
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,18 +30,19 @@
             <th scope="col"></th>
         </tr>
     </thead>
+
     <tbody>
-        @foreach (var t in @Model)
+        @foreach (var t in @Model)@*each tech row has an edit and delete button*@
         {
             <tr>
                 <td>@t.Name</td>
                 <td>@t.Email</td>
                 <td>@t.Phone</td>
                 <td>
-                    <a asp-controller="Technicians" asp-action="Edit" asp-route-id=@t.TechnicianID class="btn" style="background-color: #bae8e8;">Edit</a>
+                    <a asp-controller="Technicians" asp-action="Edit" asp-route-id=@t.TechnicianID class="btn" style="background-color: #bae8e8;">Edit</a>@*Edit button*@
                 </td>
                 <td>
-                    <a asp-controller="Technicians" asp-action="Delete" asp-route-id=@t.TechnicianID class="btn" style="background-color: #f67e7d;">Delete</a>
+                    <a asp-controller="Technicians" asp-action="Delete" asp-route-id=@t.TechnicianID class="btn" style="background-color: #f67e7d;">Delete</a>@*Delete button*@
                 </td>
             </tr>
         }
@@ -50,4 +51,4 @@
 <br />
 <br />
 <br />
-<a asp-controller="Technicians" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Technician</a>
+<a asp-controller="Technicians" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Technician</a>@*Add button*@

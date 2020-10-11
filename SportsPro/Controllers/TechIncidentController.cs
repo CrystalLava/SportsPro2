@@ -8,7 +8,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Tech")]
+    [Authorize(Roles = "Tech")]//Only a tech can view and use this page
     public class TechIncidentController : Controller
     {
         private SportsProContext context { get; set; }
@@ -18,17 +18,17 @@ namespace SportsPro.Controllers
             this.context = context;
         }
 
-        [HttpGet]
+        [HttpGet]//Get list of techs
         public ViewResult Get()
         {
             var technicians = context.Technicians.ToList();
             return View(technicians);
         }
 
-        [HttpGet]
+        [HttpGet]//Get all incidents associated to choosen tech
         public IActionResult List(int id)
         {
-            int? sessionID = HttpContext.Session.GetInt32("sessionID");
+            int? sessionID = HttpContext.Session.GetInt32("sessionID");//Session state for tech whom is working on updating incident
             if (id != 0)
             {
 

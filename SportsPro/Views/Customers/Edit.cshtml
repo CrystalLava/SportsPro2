@@ -1,18 +1,18 @@
 ﻿@model Customer
 @{
-    string title = ViewBag.Action == "Add" ? "Add" : "Edit";
+    string title = ViewBag.Action == "Add" ? "Add" : "Edit"; @*Title of page is either add or edit, based on what button was clicked*@
 
     ViewBag.Title = title;
 }
 
-@*Add Validation to Add Edit Pages*@
+@*Add Validation to Add/Edit Pages*@
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <div class="text-center">
     <h1 style="background-color: #decdc3;
         font-size: 50px" class="jumbotron">
-        <b>@ViewBag.Action Customer</b>
+        <b>@ViewBag.Action Customer</b>@*Customer and all of their individual info*@
     </h1>
 </div>
 <form asp-action="Edit" asp-controller="Customers" method="post">
@@ -69,6 +69,6 @@
         <input asp-for="Phone" type="text" class="form-control" id="phone" placeholder="Phone" value=@Model.Phone>
         <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>
-    <a asp-controller="Customers" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>
+    <button type="submit" class="btn" style="background-color: #5c848e; color:white">Save</button>@*Save button*@
+    <a asp-controller="Customers" asp-action="Index" class="btn" style="background-color: #5c848e; color:white">Cancel</a>@*Cancel button*@
 </form>

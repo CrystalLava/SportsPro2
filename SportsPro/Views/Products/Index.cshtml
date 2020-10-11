@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<Product> @*List all Products*@
 @{
     ViewBag.Title = "Product Manager";
     var msg = TempData["Message"]?.ToString();
@@ -14,12 +14,12 @@
 
     @if (needsToShow)
     {
-        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>
+        <h2 class="bg-info @(deleted ? "bg-danger": "")">@msg</h2>@*temp data showing which Product deleted within a coloured box*@
     }
 
 
-<h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Product Manager</b></h1>
-</div>
+    <h1 style="background-color: #decdc3; font-size: 50px" class="jumbotron"><b>Product Manager</b></h1>
+</div>@*Table showing only a few keys pieces of info about an Product. Rows are alternating stripes for easy read*@
 <table class="table table-striped">
     <thead>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var p in @Model)
+        @foreach (var p in @Model)@*each product row has an edit and delete button*@
         {
             <tr>
                 <td>@p.ProductCode</td>
@@ -40,12 +40,12 @@
                 <td>@p.YearlyPrice</td>
                 <td>@p.ReleaseDate</td>
                 <td>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id=@p.ProductID 
-                       class="btn" style="background-color: #bae8e8;">Edit</a>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id=@p.ProductID
+                       class="btn" style="background-color: #bae8e8;">Edit</a>@*Edit button*@
                 </td>
                 <td>
-                    <a asp-controller="Products" asp-action="Delete" asp-route-id=@p.ProductID 
-                       class="btn" style="background-color: #f67e7d;">Delete</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id=@p.ProductID
+                       class="btn" style="background-color: #f67e7d;">Delete</a>@*Delete button*@
                 </td>
             </tr>
         }
@@ -54,5 +54,5 @@
 <br />
 <br />
 <br />
-<a asp-controller="Products" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Product</a>
+<a asp-controller="Products" asp-action="Add" class="btn" style="background-color: #5c848e; color:white">Add Product</a>@*add Product button*@
 
