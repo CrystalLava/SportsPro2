@@ -59,10 +59,8 @@ namespace SportsPro
             });
 
          }
-        /*var newRole = new ApplicationRole { 	Name = model.RoleName, 	Description = model.RoleDescription }; 
-         * var result = await roleManager.CreateAsync(newRole);
-}*/
-        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        
+        /*private async Task CreateUserRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
@@ -97,7 +95,7 @@ namespace SportsPro
                 IdentityUser user = await UserManager.FindByNameAsync("tech@sportsprosoftware.com");
                 var User = new IdentityUser();
                 await UserManager.AddToRoleAsync(user, "Tech");
-        }
+        }*/
 
 
        
@@ -129,8 +127,8 @@ namespace SportsPro
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            CreateUserRoles(services).Wait();
-            CreateNewRoles(services).Wait();
+            //CreateUserRoles(services).Wait();
+            //CreateNewRoles(services).Wait();
 
 
         }
