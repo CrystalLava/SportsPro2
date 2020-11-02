@@ -59,7 +59,7 @@ namespace SportsPro
 
          }
         
-        //THE FOLLOWING MUST BE COMMENTED OUT WHEN PUBLISHING PROJECT AS A WEBSITE
+        //THE FOLLOWING COMMENTED OUT WHEN PUBLISHING PROJECT AS A WEBSITE
 
         //The following is used to created admin and user roles using ASP.NET CORE identity templetes
 
@@ -132,7 +132,7 @@ namespace SportsPro
                 endpoints.MapRazorPages();
             });
 
-            //FOLLOWING 2 LINES MUST BE COMMENTED OUT TO PUBLISH PROJECT AS A WEBSITE
+            //FOLLOWING 2 LINES COMMENTED OUT TO PUBLISH PROJECT AS A WEBSITE
              
             //CreateUserRoles(services).Wait();
             //CreateNewRoles(services).Wait();

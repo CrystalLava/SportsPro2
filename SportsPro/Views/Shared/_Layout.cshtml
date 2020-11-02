@@ -39,7 +39,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Manage
+                                Admins
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
@@ -50,17 +50,16 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
+
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Manage
+                                Technicians
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
-                                <a class="dropdown-item text-dark @(controllerName == "Technicians" ? "active" : "")" asp-controller="Technicians" asp-action="Index">Technicians</a>
-                                <a class="dropdown-item text-dark @(controllerName == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="Index">Customers</a>
-                                <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
-                                <a class="dropdown-item text-dark @(controllerName == "Registrations" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+
+                                <a class="dropdown-item text-dark @(controllerName == "TechIncident" ? "active" : "")" asp-controller="TechIncident" asp-action="Get">Update Incidents</a>
                             </div>
                         </li>
+
                     </ul>
                 </div>
 

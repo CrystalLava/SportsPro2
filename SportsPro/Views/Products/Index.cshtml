@@ -1,4 +1,5 @@
-﻿@model List<Product> @*List all Products*@
+﻿@model List<Product>
+ @*List all Products*@
 @{
     ViewBag.Title = "Product Manager";
     var msg = TempData["Message"]?.ToString();
@@ -32,7 +33,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var p in @Model)@*each product row has an edit and delete button*@
+        @foreach (var p in @Model)
+            @*each product row has an edit and delete button*@
         {
             <tr>
                 <td>@p.ProductCode</td>
