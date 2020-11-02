@@ -8,7 +8,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Tech")]//Only a tech can view and use this page
+    //[Authorize(Roles = "Tech")]//Only a tech can view and use this page
     public class TechIncidentController : Controller
     {
         private SportsProContext context { get; set; }

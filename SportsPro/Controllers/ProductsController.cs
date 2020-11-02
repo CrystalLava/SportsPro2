@@ -6,7 +6,7 @@ using SportsPro.Models.DataLayer;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]//Only admin can view and use this page
+    //[Authorize(Roles = "Admin")]//Only admin can view and use this page
     public class ProductsController : Controller
     {
         private IGRepository<Product> ProductRepo { get; set; }

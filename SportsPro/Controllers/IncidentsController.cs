@@ -10,7 +10,7 @@ using SportsPro.ViewModels;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]//Only admin can use and see this page
+    //[Authorize(Roles = "Admin")]//Only admin can use and see this page
     public class IncidentsController : Controller
     {
         private SportsProContext context { get; set; }

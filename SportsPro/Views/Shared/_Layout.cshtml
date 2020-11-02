@@ -37,43 +37,71 @@
                         <li class="nav-item">
                             <a class="nav-link text-white @(controllerName == "Home" && action == "About"? "active" : "")" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        <!-- if user is an admin they can access these pages using a drop down menu -->
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Manage
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
-                                        <a class="dropdown-item text-dark @(controllerName == "Technicians" ? "active" : "")" asp-controller="Technicians" asp-action="Index">Technicians</a>
-                                        <a class="dropdown-item text-dark @(controllerName == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="Index">Customers</a>
-                                        <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
-                                        <a class="dropdown-item text-dark @(controllerName == "Registrations" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
-                                    </div>
-                                </li>
-                            }
-                            <!-- if user is Tech they can access these pages using a drop down menu -->
-                            else if (User.IsInRole("Tech"))
-                            {
-                                <li class="nav-item dropdown">
-
-                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Manage
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                                        <a class="dropdown-item text-dark @(controllerName == "TechIncident" ? "active" : "")" asp-controller="TechIncident" asp-action="Get">Update Incidents</a>
-                                    </div>
-                                </li>
-                            }
-                        }
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Technicians" ? "active" : "")" asp-controller="Technicians" asp-action="Index">Technicians</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="Index">Customers</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Registrations" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Technicians" ? "active" : "")" asp-controller="Technicians" asp-action="Index">Technicians</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="Index">Customers</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Registrations" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
+
+                @*
+            REMOVED ADMIN AND TECH USER LOGIN ACCESS SO ANYONE CAN VIEW ALL PAGES FROM SPORTSPRO AZURE LINK OR GITHUB
+                    <!-- if user is an admin they can access these pages using a drop down menu-->
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item text-dark @(controllerName == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">Products</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Technicians" ? "active" : "")" asp-controller="Technicians" asp-action="Index">Technicians</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Customers" ? "active" : "")" asp-controller="Customers" asp-action="Index">Customers</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Incidents" ? "active" : "")" asp-controller="Incidents" asp-action="Index">Incidents</a>
+                                <a class="dropdown-item text-dark @(controllerName == "Registrations" ? "active" : "")" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                            </div>
+                        </li>
+                    }
+                        <!-- if user is Tech they can access these pages using a drop down menu-->
+                    else if (User.IsInRole("Tech"))
+                    {
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Manage
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            <a class="dropdown-item text-dark @(controllerName == "TechIncident" ? "active" : "")" asp-controller="TechIncident" asp-action="Get">Update Incidents</a>
+                        </div>
+                    </li>
+                    }
+                 }
+                *@
+                
                 <div class="navbar-nav navbar-right">
                     <partial name="_LoginPartial" />
                 </div>

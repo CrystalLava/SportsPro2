@@ -5,7 +5,7 @@ using SportsPro.Models;
 
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]//Only Admin has access to this page
+    //[Authorize(Roles = "Admin")]//Only Admin has access to this page
     public class TechniciansController : Controller
     {
         private SportsProContext context { get; set; }

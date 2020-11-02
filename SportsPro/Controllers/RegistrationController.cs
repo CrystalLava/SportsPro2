@@ -8,7 +8,7 @@ using SportsPro.Models;
 //Page not completed//
 namespace SportsPro.Controllers
 {
-    [Authorize(Roles = "Admin")]//only admin can view and use this page
+    //[Authorize(Roles = "Admin")]//only admin can view and use this page
     public class RegistrationController : Controller
     {
         private SportsProContext context { get; set; }
